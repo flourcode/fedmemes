@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>FedMemes Meme Generator</title>
+<style>
+  :root{
+    --bg:#f0f0f0;
+    --ink:#000;
+    --ink-2:#666;
+    --red:#ff4444;
+    --blue:#4488ff;
+    --green:#44ff88;
+    --yellow:#ffdd44;
+    --purple:#aa44ff;
+    --orange:#ff8844;
+    --cyan:#44ffff;
+    --pink:#ff44aa;
+  }
+  
+  *{box-sizing:border-box}
+  html,body{height:100%; margin:0; padding:0}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family: 'Arial Black', Arial, sans-serif;
+    font-weight:900;
+    display: flex; /* Flexbox for full height layout */
+    flex-direction: column;
+  }
+
+  .container{
+    max-width:900px; 
+    margin:0 auto; 
+    padding:20px;
+    display:grid; 
+    gap:20px;
+    flex-grow: 1; /* Allows container to take available space */
+  }
+
+  /* Brutalist Block Cards */
+  .block{
+    border:4px solid #000;
+    overflow:hidden;
+    box-shadow: 8px 8px 0px #000;
+  }
+
+  .block-header{
+    padding:15px 20px;
+    font-size:20px;
+    font-weight:900;
+    text-transform:uppercase;
+    letter-spacing:2px;
+    border-bottom:4px solid #000;
+  }
+
+  .block-content{
+    padding:20px;
+    background:#fff;
+  }
+
+  /* Header Block */
+  .header-block{
+    background:var(--cyan);
+    color:#000;
+    text-align:left;
+    padding:25px 20px;
+    display:flex;
+    align-items:left;
+    justify-content:space-between;
+    gap:15px;
+  }
+  
+  .logo-area{
+    display:flex;
+    align-items:left;
+    gap:15px;
+  }
+  
+  .logo{
+    font-size:42px;
+  }
+  
+  .brand-text{
+    font-size:32px;
+    letter-spacing:3px;
+    font-weight:900;
+  }
+  
+  .tagline{
+    font-size:14px;
+    opacity:0.8;
+    font-weight:700;
+  }
+
+  /* Control Blocks */
+  .controls-grid{
+    display:grid;
+    gap:20px;
+    grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));
+  }
+
+  .upload-block .block-header{ background:var(--green); }
+  .text-block .block-header{ background:var(--yellow); }
+  .watermark-block .block-header{ background:var(--purple); color:#fff; }
+
+  /* Form Controls */
+  .control{
+    margin-bottom:15px;
+  }
+  
+  .label{
+    display:block;
+    font-size:14px;
+    font-weight:900;
+    text-transform:uppercase;
+    margin-bottom:8px;
+    color:var(--ink-2);
+  }
+  
+  input[type="file"], textarea, input[type="text"]{
+    width:100%;
+    padding:12px;
+    border:3px solid #000;
+    font-size:16px;
+    font-weight:700;
+    background:#fff;
+  }
+  
+  textarea{
+    min-height:80px;
+    resize:vertical;
+    font-family:inherit;
+  }
+  
+  input:focus, textarea:focus{
+    outline:none;
+    border-color:var(--blue);
+    box-shadow: 0 0 0 3px rgba(68,136,255,0.3);
+  }
+
+  /* Buttons */
+  .btn{
+    display:inline-block;
+    padding:15px 25px;
+    border:4px solid #000;
+    font-weight:900;
+    font-size:16px;
+    text-transform:uppercase;
+    cursor:pointer;
+    transition:transform 0.1s ease;
+    text-decoration:none;
+    text-align:center;
+    letter-spacing:1px;
+  }
+  
+  .btn:hover{ transform:translate(-2px, -2px); }
+  .btn:active{ transform:translate(2px, 2px); }
+  
+  .btn-primary{ background:var(--red); color:#fff; }
+  .btn-secondary{ background:var(--orange); color:#000; }
+  .btn-ghost{ background:#fff; color:#000; }
+
+  /* Canvas Block */
+  .canvas-block .block-header{ background:var(--pink); color:#fff; }
+  
+  .meme-canvas{
+    position:relative;
+    width:100%;
+    max-width:500px;
+    aspect-ratio:1/1;
+    margin:0 auto 20px auto;
+    border:4px solid #000;
+    overflow:hidden;
+    background:#333;
+  }
+  
+  .meme-bg{
+    position:absolute;
+    inset:0;
+    background-position:center;
+    background-size:cover;
+    background-repeat:no-repeat;
+  }
+  
+  .meme-text{
+    position:absolute;
+    width:90%;
+    left:50%;
+    transform:translateX(-50%);
+    color:#fff;
+    font-weight:900;
+    text-align:center;
+    font-size:32px;
+    text-shadow: 3px 3px 0 #000, -3px -3px 0 #000, 3px -3px 0 #000, -3px 3px 0 #000;
+    line-height:1.1;
+    font-family: 'Impact', 'Arial Black', Arial, sans-serif;
+  }
+  
+  .top-text{ top:20px; }
+  .bottom-text{ bottom:20px; }
+  
+  .watermark{
+    position:absolute;
+    bottom:8px;
+    left:8px;
+    font-size:16px;
+    color:rgba(255,255,255,0.9);
+    text-shadow: 2px 2px 0 #000;
+    font-weight:900;
+  }
+
+  .action-buttons{
+    display:flex;
+    gap:15px;
+    justify-content:center;
+    flex-wrap:wrap;
+  }
+
+  /* Examples Block */
+  .examples-block .block-header{ background:var(--orange); }
+  
+  .examples-grid{
+    display:grid;
+    gap:15px;
+    grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+  }
+  
+  .example{
+    padding:15px;
+    border:3px solid #000;
+    background:var(--yellow);
+    cursor:pointer;
+    transition:transform 0.1s ease;
+    font-size:14px;
+  }
+  
+  .example:hover{ transform:translate(-2px, -2px); }
+  .example:active{ transform:translate(2px, 2px); }
+  
+  .example strong{
+    color:#000;
+    display:block;
+    margin-bottom:5px;
+  }
+  
+  .example em{
+    color:#333;
+    font-style:normal;
+    font-weight:700;
+  }
+
+  /* Stock Images Block */
+  .images-block .block-header{ background:var(--green); }
+  
+  .gallery{
+    display:grid;
+    gap:12px;
+    grid-template-columns:repeat(auto-fit, minmax(120px, 1fr));
+  }
+  
+  .gallery-img{
+    aspect-ratio:1/1;
+    background:#ddd center/cover no-repeat;
+    border:4px solid #000;
+    cursor:pointer;
+    transition:transform 0.1s ease;
+  }
+  
+  .gallery-img:hover{ transform:scale(1.05); }
+  .gallery-img.selected{ 
+    border-color:var(--red);
+    box-shadow: 0 0 0 4px rgba(255,68,68,0.3);
+  }
+
+  /* Toast */
+  .toast{
+    position:fixed;
+    bottom:30px;
+    left:50%;
+    transform:translateX(-50%);
+    background:#000;
+    color:#fff;
+    padding:15px 25px;
+    border:4px solid #fff;
+    font-weight:900;
+    font-size:16px;
+    z-index:1000;
+    opacity:0;
+    transition:opacity 0.3s ease;
+  }
+  
+  .toast.show{ opacity:1; }
+
+  /* Footer Styles */
+  .footer-block {
+    margin-top: 20px;
+    background: var(--ink); /* Black background for footer */
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    font-size: 14px;
+    border-top: 4px solid var(--orange); /* Distinct top border */
+  }
+
+  .footer-block p {
+    margin: 0 0 10px 0;
+    line-height: 1.5;
+  }
+
+  .footer-block a {
+    color: var(--cyan); /* Link color */
+    text-decoration: none;
+    font-weight: 700;
+    transition: color 0.2s ease;
+  }
+
+  .footer-block a:hover {
+    color: var(--red);
+    text-decoration: underline;
+  }
+
+
+  /* Mobile Responsive */
+  @media(max-width:640px){
+    .controls-grid{
+      grid-template-columns:1fr;
+    }
+    .examples-grid{
+      grid-template-columns:1fr;
+    }
+    .gallery{
+      grid-template-columns:repeat(3, 1fr);
+    }
+    .action-buttons{
+      flex-direction:column;
+    }
+    .btn{
+      width:100%;
+    }
+    .header-block{
+      flex-direction:column;
+      text-align:center;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="block header-block">
+      <div class="logo-area">
+        <div class="logo">🏛️</div>
+        <div>
+          <div class="brand-text">FedMemes</div>
+          <div class="tagline">Brandable Memes for Your Pleasure</div>
+        </div>
+      </div>
+      <div>
+        <button class="btn btn-primary" id="generateBtn">🚀 Generate Meme</button>
+      </div>
+    </div>
+
+    <div class="block canvas-block">
+      <div class="block-header">🎨 Your Meme</div>
+      <div class="block-content">
+        <div class="meme-canvas" id="memeCanvas">
+          <div class="meme-bg" id="memeBg"></div>
+          <div class="meme-text top-text" id="topTextEl">NOBODY:</div>
+          <div class="meme-text bottom-text" id="bottomTextEl">ME FILLING OUT MY 47TH FORM TODAY</div>
+          <div class="watermark" id="watermarkEl"></div>
+        </div>
+        
+        <div style="text-align:center; margin-bottom:20px; color:#666; font-size:14px;">
+          Click "Generate Meme" to create your final version
+        </div>
+        
+        <div class="action-buttons">
+          <button class="btn btn-secondary" id="downloadBtn">📥 Download</button>
+          <button class="btn btn-ghost" id="shareLinkedInBtn">💼 Share on LinkedIn</button>
+          <button class="btn btn-ghost" id="shareTextBtn">💬 Share via Text</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="controls-grid">
+      <div class="block upload-block">
+        <div class="block-header">📁 Upload Your Image</div>
+        <div class="block-content">
+          <div class="control">
+            <label class="label">Choose File</label>
+            <input type="file" id="imageUpload" accept="image/*" />
+          </div>
+        </div>
+      </div>
+
+      <div class="block text-block">
+        <div class="block-header">✏️ Customize Text</div>
+        <div class="block-content">
+          <div class="control">
+            <label class="label">Top Text</label>
+            <textarea id="topText" placeholder="Enter top text...">Nobody:</textarea>
+          </div>
+          <div class="control">
+            <label class="label">Bottom Text</label>
+            <textarea id="bottomText" placeholder="Enter bottom text...">Me filling out my 47th form today</textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="block watermark-block">
+        <div class="block-header">🏷️ Add Watermark</div>
+        <div class="block-content">
+          <div class="control">
+            <label class="label">Your Handle (Optional)</label>
+            <input type="text" id="watermark" placeholder="@yourusername" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-header">🖼️ Choose Stock Photo</div>
+      <div class="block-content">
+        <div class="gallery" id="gallery"></div>
+        <div style="text-align:center; margin-top:12px; font-size:12px; color:var(--ink-2);">
+          Click an image to use as background
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-header">🎲 Quick Examples</div>
+      <div class="block-content">
+        <div class="examples-grid" id="examples"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+  <canvas id="exportCanvas" style="display:none;"></canvas>
+
+  <footer class="footer-block">
+    <p>&copy; 2025 FedMemes.com. All rights reserved.</p>
+    <p>
+      For DMCA Takedown requests, please email 
+      <a href="mailto:dmca.takedown@example.com">dmca.takedown@example.com</a>.
+    </p>
+  </footer>
+
+<script>
+// Government/Federal employee meme examples
+const EXAMPLES = [
+  { top: "POV: Friday 4:59", bottom: "New RFQ. Due Monday" },
+  { top: "Industry Day", bottom: "Free coffee. Zero answers" },
+  { top: "SAM.gov", bottom: "Draft since 2019" },
+  { top: "FedRAMP status", bottom: "In Process. So am I" },
+  { top: "Teaming call", bottom: "Friends at hello. Enemies at pricing" },
+  { top: "OCI check", bottom: "You are fine. Until you are not" },
+  { top: "Orals deck", bottom: "30 minutes. 120 slides" },
+  { top: "Compliance matrix", bottom: "Sudoku for SIs" },
+  { top: "NAICS code", bottom: "Never the one we do" },
+  { top: "Set aside question", bottom: "Set aside my hopes" },
+  { top: "Small biz partner", bottom: "The real MVP" },
+  { top: "Prime asks for capabilities", bottom: "They mean rates" },
+  { top: "SubK margin", bottom: "Thoughts and prayers" },
+  { top: "Price to win", bottom: "Spreadsheet. And vibes" },
+  { top: "Sources Sought", bottom: "Sought too late" },
+  { top: "Kickoff call", bottom: "Everyone muted. One dog unmuted" },
+  { top: "FedRAMP logo slide", bottom: "Bigger than the product" },
+  { top: "Free Cloud credits", bottom: "Forgot to turn off RDS" },
+  { top: "How much is ProServe", bottom: "How much do you have" },
+  { top: "Proposal due date", bottom: "Holiday weekend. Of course" },
+  { top: "Questions due", bottom: "Already closed" },
+  { top: "Contract vehicle", bottom: "Not our vehicle." },
+  { top: "Invoice portal", "bottom": "Password expired during login" },
+  { top: "CPARS", bottom: "Five stars. Lost on price" },
+  { top: "Task order drop", bottom: "Midnight. Timezone unknown" },
+  { top: "Past perf crosswalk", bottom: "Archeology with highlighters" },
+  { top: "FPDS safari", bottom: "Found our rival flourishing" },
+  { top: "SAM UEI", bottom: "On a Post it somewhere" },
+  { top: "Agency forecast", bottom: "PDF from 2017" },
+  { top: "Orals prep", bottom: "Answers rehearsed. Wrong questions" },
+  { top: "CUI labeling", bottom: "Desktop looks like a ransom note" },
+  { top: "Opening LinkedIn", bottom: "Congratulations on your congratulations" },
+  { top: "GovCloud estimate", bottom: "Surprise party" },
+  { top: "IL5 timeline", bottom: "In dog years" }
+];
+
+// Stock background images
+const STOCK_IMAGES = [
+  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face",
+  "https://images.unsplash.com/photo-1494790108755-2616c96d3ebe?w=400&h=400&fit=crop&crop=face",
+  "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face",
+  "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face",
+  "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop&crop=face",
+  "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=400&fit=crop&crop=face",
+  "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face",
+  "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=400&fit=crop&crop=face",
+  "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=400&h=400&fit=crop&crop=face"
+];
+
+// Elements
+const topText = document.getElementById('topText');
+const bottomText = document.getElementById('bottomText');
+const watermark = document.getElementById('watermark');
+const topTextEl = document.getElementById('topTextEl');
+const bottomTextEl = document.getElementById('bottomTextEl');
+const watermarkEl = document.getElementById('watermarkEl');
+const memeBg = document.getElementById('memeBg');
+const imageUpload = document.getElementById('imageUpload');
+const gallery = document.getElementById('gallery');
+const examples = document.getElementById('examples');
+const generateBtn = document.getElementById('generateBtn');
+const downloadBtn = document.getElementById('downloadBtn');
+const shareLinkedInBtn = document.getElementById('shareLinkedInBtn');
+const shareTextBtn = document.getElementById('shareTextBtn');
+const toast = document.getElementById('toast');
+const exportCanvas = document.getElementById('exportCanvas');
+
+let currentImage = null;
+let generatedMemeBlob = null;
+
+// Initialize
+function init() {
+  // Set default placeholder image
+  currentImage = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face";
+  memeBg.style.backgroundImage = `url(${currentImage})`;
+  
+  setupExamples();
+  setupGallery();
+  setupEventListeners();
+  updateMeme();
+}
+
+function setupExamples() {
+  examples.innerHTML = '';
+  EXAMPLES.forEach(example => {
+    const div = document.createElement('div');
+    div.className = 'example';
+    div.innerHTML = `<strong>"${example.top}"</strong><em>"${example.bottom}"</em>`;
+    div.onclick = () => {
+      topText.value = example.top;
+      bottomText.value = example.bottom;
+      updateMeme();
+      showToast('Example loaded! 🎉');
+    };
+    examples.appendChild(div);
+  });
+}
+
+function setupGallery() {
+  gallery.innerHTML = '';
+  STOCK_IMAGES.forEach((url, index) => {
+    const div = document.createElement('div');
+    div.className = 'gallery-img';
+    div.style.backgroundImage = `url(${url})`;
+    
+    // Select first image by default
+    if (index === 0) {
+      div.classList.add('selected');
+    }
+    
+    div.onclick = () => {
+      document.querySelectorAll('.gallery-img').forEach(img => img.classList.remove('selected'));
+      div.classList.add('selected');
+      currentImage = url;
+      memeBg.style.backgroundImage = `url(${url})`;
+      showToast('Image selected! 📸');
+    };
+    gallery.appendChild(div);
+  });
+}
+
+function setupEventListeners() {
+  topText.addEventListener('input', updateMeme);
+  bottomText.addEventListener('input', updateMeme);
+  watermark.addEventListener('input', updateMeme);
+  
+  imageUpload.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        currentImage = e.target.result;
+        memeBg.style.backgroundImage = `url(${currentImage})`;
+        document.querySelectorAll('.gallery-img').forEach(img => img.classList.remove('selected'));
+        showToast('Custom image uploaded! 🖼️');
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+
+  generateBtn.addEventListener('click', generateMeme);
+  downloadBtn.addEventListener('click', downloadMeme);
+  shareLinkedInBtn.addEventListener('click', shareLinkedIn);
+  shareTextBtn.addEventListener('click', shareText);
+}
+
+function updateMeme() {
+  topTextEl.textContent = topText.value.toUpperCase();
+  bottomTextEl.textContent = bottomText.value.toUpperCase();
+  watermarkEl.textContent = watermark.value;
+  watermarkEl.style.display = watermark.value ? 'block' : 'none';
+}
+
+async function generateMeme() {
+  const canvas = exportCanvas;
+  const ctx = canvas.getContext('2d');
+  canvas.width = 800;
+  canvas.height = 800;
+
+  // Black background
+  ctx.fillStyle = '#000';
+  ctx.fillRect(0, 0, 800, 800);
+
+  // Draw background image if exists
+  if (currentImage) {
+    const img = new Image();
+    img.crossOrigin = 'anonymous'; // Important for CORS if using external images
+    await new Promise((resolve, reject) => {
+      img.onload = () => {
+        ctx.drawImage(img, 0, 0, 800, 800);
+        resolve();
+      };
+      img.onerror = () => {
+        // Fallback or error handling for image loading
+        console.error('Failed to load image for canvas:', currentImage);
+        resolve(); // Resolve anyway to proceed without the image
+      };
+      img.src = currentImage;
+    });
+  }
+
+  // Text styling
+  ctx.fillStyle = '#fff';
+  ctx.strokeStyle = '#000';
+  ctx.lineWidth = 4;
+  ctx.textAlign = 'center';
+  ctx.font = 'bold 48px Impact, Arial';
+
+  // Top text
+  const topLines = wrapText(ctx, topText.value.toUpperCase(), 750);
+  topLines.forEach((line, i) => {
+    const y = 80 + (i * 60);
+    ctx.strokeText(line, 400, y);
+    ctx.fillText(line, 400, y);
+  });
+
+  // Bottom text
+  const bottomLines = wrapText(ctx, bottomText.value.toUpperCase(), 750);
+  bottomLines.reverse().forEach((line, i) => {
+    const y = 720 - (i * 60);
+    ctx.strokeText(line, 400, y);
+    ctx.fillText(line, 400, y);
+  });
+
+  // Watermark
+  if (watermark.value) {
+    ctx.font = 'bold 24px Arial';
+    ctx.fillStyle = 'rgba(255,255,255,0.8)';
+    ctx.strokeStyle = '#000';
+    ctx.lineWidth = 2;
+    ctx.textAlign = 'left';
+    ctx.strokeText(watermark.value, 20, 770);
+    ctx.fillText(watermark.value, 20, 770);
+  }
+
+  return new Promise((resolve) => {
+    canvas.toBlob((blob) => {
+      generatedMemeBlob = blob;
+      showToast('Meme generated! Ready to share 🎉');
+      resolve(blob);
+    }, 'image/png'); // Specify image type
+  });
+}
+
+async function downloadMeme() {
+  if (!generatedMemeBlob) {
+    await generateMeme();
+  }
+  
+  const url = URL.createObjectURL(generatedMemeBlob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `fedmeme-${Date.now()}.png`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('Meme downloaded! 💾');
+}
+
+async function shareLinkedIn() {
+    if (!generatedMemeBlob) {
+        showToast('Please generate your meme first!');
+        return;
+    }
+
+    // Attempt to download the image first
+    await downloadMeme(); // This will show a toast about downloading
+
+    // Prepare a caption for LinkedIn
+    const caption = `${topText.value}\n${bottomText.value}\n\n#government #federalemployee #civilservice #publicsector #workhumor #FedMemes`;
+
+    // Try to copy caption to clipboard (desktop experience)
+    try {
+        await navigator.clipboard.writeText(caption);
+        showToast('Caption copied! Now, upload the downloaded meme on LinkedIn.');
+    } catch (err) {
+        showToast('Could not copy caption. Please copy manually and proceed.');
+        console.error('Failed to copy caption to clipboard: ', err);
+    }
+
+    // Open LinkedIn's share page in a new tab
+    // Note: Direct image upload is not supported via this simple client-side method.
+    // Users will need to manually upload the image they just downloaded.
+    setTimeout(() => { // Give a small delay for download to start/clipboard copy
+        window.open('https://www.linkedin.com/feed/?shareActive=true', '_blank');
+    }, 500);
+}
+
+
+async function shareText() {
+    if (!generatedMemeBlob) {
+        showToast('Please generate your meme first!');
+        return;
+    }
+
+    const title = 'FedMemes: Your new favorite meme!';
+    const text = `${topText.value}\n${bottomText.value}`;
+    
+    // Try to use Web Share API
+    if (navigator.share && navigator.canShare && navigator.canShare({ files: [new File([generatedMemeBlob], 'fedmeme.png', { type: 'image/png' })] })) {
+        try {
+            await navigator.share({
+                title: title,
+                text: text,
+                files: [new File([generatedMemeBlob], 'fedmeme.png', { type: 'image/png' })]
+            });
+            showToast('Meme shared! 📱');
+        } catch (error) {
+            console.error('Error sharing:', error);
+            // Fallback if user cancels or there's another share error
+            fallbackManualShare(text);
+        }
+    } else {
+        // Fallback for browsers/devices that don't support Web Share API with files
+        fallbackManualShare(text);
+    }
+}
+
+function fallbackManualShare(text) {
+    // Attempt to copy text to clipboard
+    navigator.clipboard.writeText(text).then(() => {
+        showToast('Text copied to clipboard! Please download the image and paste the text into your messaging app.');
+    }).catch(err => {
+        // If clipboard write fails, provide a text area for manual copy
+        // This is a last resort and may not work perfectly on all mobile devices
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        showToast('Text copied to clipboard! (Manual fallback). Please download the image and paste the text into your messaging app.');
+    });
+    // For manual text share, we also want to ensure the user downloads the image
+    downloadMeme(); 
+}
+
+function wrapText(ctx, text, maxWidth) {
+  const words = text.split(' ');
+  const lines = [];
+  let currentLine = words[0];
+
+  for (let i = 1; i < words.length; i++) {
+    const word = words[i];
+    const width = ctx.measureText(currentLine + ' ' + word).width;
+    if (width < maxWidth) {
+      currentLine += ' ' + word;
+    } else {
+      lines.push(currentLine);
+      currentLine = word;
+    }
+  }
+  lines.push(currentLine);
+  return lines;
+}
+
+function showToast(message) {
+  toast.textContent = message;
+  toast.classList.add('show');
+  setTimeout(() => {
+    toast.classList.remove('show');
+  }, 3000);
+}
+
+// Start the app
+init();
+</script>
+</body>
+</html>
