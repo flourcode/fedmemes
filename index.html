@@ -1047,79 +1047,28 @@ async function copyAndShare() {
     }
 
     const memeText = `${topText.value}\n${bottomText.value}\n\n#FedMemes`;
-    const shareTitle = 'FedMemes: Check out this meme!';
 
-    // 1. Try to copy the IMAGE to clipboard first (most direct for many apps)
+    // Try to copy the IMAGE to clipboard first (works great on most devices)
     try {
         const item = new ClipboardItem({'image/png': generatedMemeBlob});
         await navigator.clipboard.write([item]);
-        showToast('Meme image copied! ✅ Now paste it directly into your chat, email, or other apps.');
-        
-        // After successful image copy, offer native share or LinkedIn based on device type
-        // Use a slight delay so the user registers the copy toast
-        setTimeout(async () => {
-            if (navigator.share && navigator.canShare && navigator.canShare({ files: [new File([generatedMemeBlob], 'fedmeme.png', { type: 'image/png' })] })) {
-                // For mobile, offer native sharing
-                const userConfirms = confirm('Meme copied! Would you also like to share using your device\'s native options (SMS, WhatsApp, etc.)?');
-                if (userConfirms) {
-                    try {
-                        await navigator.share({
-                            title: shareTitle,
-                            text: memeText,
-                            files: [new File([generatedMemeBlob], 'fedmeme.png', { type: 'image/png' })]
-                        });
-                        showToast('Native sharing initiated! 🎉');
-                    } catch (error) {
-                        console.error('Native share cancelled or failed:', error);
-                    }
-                }
-            } else {
-                // For desktop, offer LinkedIn through a confirm dialog
-                const userConfirms = confirm('Meme copied! You can now paste it. Would you like to open LinkedIn to share there (requires manual image upload)?');
-                if (userConfirms) {
-                     const linkedinShareUrl = 'https://www.linkedin.com/feed/?shareActive=true';
-                     window.open(linkedinShareUrl, '_blank');
-                     showToast('LinkedIn opened. Remember to paste the text and upload the downloaded meme.');
-                }
-            }
-        }, 1000); // Wait 1 second after copy toast
-        return; 
-
+        showToast('✅ Meme copied to clipboard! Now paste it anywhere you want to share.');
+        return; // Exit after successful copy
     } catch (err) {
-        console.warn('Failed to copy image directly to clipboard, falling back:', err);
-        // Continue to Web Share API if image copy fails
+        console.warn('Image clipboard not supported, trying text fallback:', err);
     }
 
-    // 2. Fallback: Try Web Share API (for mobile devices if image clipboard fails)
-    if (navigator.share && navigator.canShare && navigator.canShare({ files: [new File([generatedMemeBlob], 'fedmeme.png', { type: 'image/png' })] })) {
-        try {
-            await navigator.share({
-                title: shareTitle,
-                text: memeText,
-                files: [new File([generatedMemeBlob], 'fedmeme.png', { type: 'image/png' })]
-            });
-            showToast('Meme shared successfully via your device\'s native options! 🎉');
-            return; // Exit after successful native share
-        } catch (error) {
-            console.error('Error with native Web Share:', error);
-            // Continue to manual fallback if native share fails or user cancels
-        }
-    }
-
-    // 3. Final Fallback: Manual steps (if all else fails)
-    showToast('Direct share not fully supported. We\'ve copied the text. Please download the meme and upload manually.');
-    
-    // Copy text to clipboard for manual pasting
+    // Fallback: Copy text only and prompt download
     try {
         await navigator.clipboard.writeText(memeText);
+        showToast('📋 Text copied! Downloading image so you can share both.');
+        downloadMeme(); // Auto-download the image
     } catch (err) {
-        console.error('Failed to copy text to clipboard:', err);
+        console.error('Clipboard not supported:', err);
+        showToast('📱 Clipboard not available. Downloading your meme now!');
+        downloadMeme(); // Just download if nothing else works
     }
-
-    // Always prompt download as manual step for image if automatic methods fail
-    downloadMeme(); // This will trigger its own toast message
 }
-
 
 function wrapText(ctx, text, maxWidth) {
   const words = text.split(' ');
