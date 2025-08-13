@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>FedMemes Meme Generator</title>
+<title>FedMemes Meme Maker</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&family=Impact&display=swap" rel="stylesheet">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZDP1NY9F83"></script>
@@ -11,7 +11,6 @@
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-ZDP1NY9F83');
 </script>
 <style>
@@ -22,12 +21,10 @@
     --surface-light: #FFFFFF; /* Pure white for main card surfaces */
     --surface-mid: #EFEFEF; /* Light gray for subtle variations */
     --surface-dark: #1A1A1A; /* Deep black for strong contrasts */
-
     /* Ink Colors */
     --ink: #000000; /* Pure black for borders and text - ESSENTIAL for contrast */
     --ink-2: #2A2A2A; /* Dark gray for secondary text */
     --ink-3: #666666; /* Medium gray for tertiary text */
-
     /* Bold Brutalist Accent Colors (chosen for high contrast & distinction) */
     --accent-primary-action: #DC143C; /* Crimson Red: Bold, attention-grabbing for Generate button */
     --accent-secondary-action: #FFA500; /* Orange: Energetic, clear for Download/Copy & Share */
@@ -38,7 +35,6 @@
     --accent-header-meme: #DA70D6; /* Orchid (Pink-Purple): Playful, distinct, good with black text */
     --accent-header-stock: #4682B4; /* Steel Blue: Strong, distinct, good with white text */
     --accent-header-examples: #B22222; /* Firebrick (Darker Red): Strong, distinct, good with white text */
-    
     /* Enhanced UI properties - KEPT AS PER YOUR ORIGINAL FILE */
     --border-width: 3px; 
     --radius-none: 0px; 
@@ -47,7 +43,6 @@
     --shadow-mega: 12px 12px 0px var(--ink); 
     --shadow-inset: inset 4px 4px 0px rgba(0,0,0,0.1); 
   }
-  
   /* --- Global Resets & Typography --- */
   *{box-sizing:border-box}
   html,body{height:100%; margin:0; padding:0}
@@ -60,7 +55,6 @@
     flex-direction: column;
     line-height: 1.4;
   }
-
   /* Specific elements for bolder, meme-style impact font */
   .block-header,
   .brand-text,
@@ -71,7 +65,6 @@
     letter-spacing: 0.05em; 
     text-transform: uppercase;
   }
-
   .label {
     font-family: 'Inter', sans-serif;
     font-weight: 700; 
@@ -79,12 +72,10 @@
     letter-spacing: 0.03em; 
     font-size: 14px;
   }
-
   .meme-text {
       font-family: 'Impact', sans-serif;
       font-weight: 900;
   }
-
   .container{
     max-width:1000px; /* ORIGINAL VALUE */
     margin:0 auto; 
@@ -93,7 +84,6 @@
     gap:24px; /* ORIGINAL VALUE */
     flex-grow: 1; 
   }
-
   /* --- UI Blocks --- */
   .block{
     border:var(--border-width) solid var(--ink);
@@ -104,20 +94,16 @@
     transform: rotate(-0.5deg); /* ORIGINAL VALUE */
     transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
-
   .block:hover {
     transform: rotate(0deg) translateY(-2px);
     box-shadow: var(--shadow-mega);
   }
-
   .block:nth-child(even) {
     transform: rotate(0.5deg); /* ORIGINAL VALUE */
   }
-
   .block:nth-child(even):hover {
     transform: rotate(0deg) translateY(-2px);
   }
-
   .block-header{
     padding:20px 24px;
     font-size:22px;
@@ -125,12 +111,10 @@
     position: relative;
     overflow: hidden;
   }
-
   .block-content{
     padding:24px;
     background:var(--surface-light);
   }
-
   /* --- Header Block --- */
   .header-block{
     background: var(--accent-header-main); /* UPDATED: Black background for main header */
@@ -148,29 +132,24 @@
     position: relative;
     overflow: hidden;
   }
-
   .header-block:hover {
     transform: rotate(0deg); 
   }
-  
   .logo-area{
     display:flex;
     align-items:center;
     gap:20px; /* ORIGINAL VALUE */
     z-index: 1;
   }
-  
   .logo{
     font-size:42px; /* ORIGINAL VALUE */
     text-shadow: 3px 3px 0px var(--ink); /* This text-shadow will be less visible on black, but original property is kept */
   }
-  
   .brand-text{
     font-size:32px; /* ORIGINAL VALUE */
     letter-spacing:3px; /* ORIGINAL VALUE */
     text-shadow: 2px 2px 0px rgba(0,0,0,0.3); /* This text-shadow will be less visible on black, but original property is kept */
   }
-  
   .tagline{
     font-size:14px; /* ORIGINAL VALUE */
     opacity:0.9; 
@@ -179,14 +158,12 @@
     text-transform: none;
     margin-top: 8px; /* ORIGINAL VALUE */
   }
-
   .stats-area {
     display: flex;
     flex-direction: column;
     gap: 8px; /* ORIGINAL VALUE */
     text-align: right;
   }
-
   .stat-item {
     font-family: 'Inter', sans-serif;
     font-size: 13px;
@@ -199,14 +176,12 @@
     box-shadow: 3px 3px 0px var(--ink);
     white-space: nowrap;
   }
-
   /* --- Control Blocks --- */
   .controls-grid{
     display:grid;
     gap:24px; /* ORIGINAL VALUE */
     grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); /* ORIGINAL VALUE */
   }
-
   .upload-block .block-header{ 
     background: var(--accent-header-upload); /* UPDATED: Light Green background */
     color: var(--ink); /* UPDATED: Black text */
@@ -219,12 +194,10 @@
     background: var(--accent-header-watermark); /* UPDATED: Light Blue background */
     color: var(--ink); /* UPDATED: Black text */
   }
-
   /* --- Form Controls --- */
   .control{
     margin-bottom:20px; /* ORIGINAL VALUE */
   }
-  
   input[type="file"], textarea, input[type="text"]{
     width:100%;
     padding:16px; /* ORIGINAL VALUE */
@@ -236,20 +209,17 @@
     box-shadow: var(--shadow-inset);
     font-family: 'Inter', sans-serif;
   }
-  
   textarea{
     min-height:100px; /* ORIGINAL VALUE */
     resize:vertical;
     font-family:inherit;
   }
-  
   input:focus, textarea:focus{
     outline:none;
     border-color:var(--accent-primary-action); /* UPDATED: Crimson Red focus */
     box-shadow: 0 0 0 4px rgba(220,20,60,0.3), var(--shadow-inset); 
     transform: translateY(-2px); /* ORIGINAL VALUE */
   }
-
   /* --- Buttons --- */
   .btn{
     display:inline-block;
@@ -266,7 +236,6 @@
     position: relative;
     overflow: hidden;
   }
-  
   .btn:hover{ 
     transform:translate(-4px, -4px); /* ORIGINAL VALUE */
     box-shadow: var(--shadow-mega);
@@ -275,7 +244,6 @@
     transform:translate(4px, 4px); /* ORIGINAL VALUE */
     box-shadow: 2px 2px 0px var(--ink);
   }
-  
   .btn-primary{ 
     background: var(--accent-primary-action); /* UPDATED: Crimson Red for Generate */
     color: var(--surface-light); /* UPDATED: White text */
@@ -288,13 +256,11 @@
     background: var(--accent-secondary-action); /* UPDATED: Orange for Copy & Share */
     color: var(--surface-light); /* UPDATED: White text */
   }
-
   /* --- Canvas Block & Polaroid Frame --- */
   .canvas-block .block-header{ 
     background: var(--accent-header-meme); /* UPDATED: Orchid (Pink-Purple) for meme header */
     color: var(--ink); /* UPDATED: Black text */
   }
-  
   .meme-polaroid-frame {
     background: var(--surface-light);
     border: var(--border-width) solid var(--ink);
@@ -310,11 +276,9 @@
     transform: rotate(-1deg); /* ORIGINAL VALUE */
     transition: transform 0.3s ease;
   }
-
   .meme-polaroid-frame:hover {
     transform: rotate(0deg) scale(1.02); /* ORIGINAL VALUE */
   }
-
   .meme-polaroid-frame::after {
     content: ""; 
     position: absolute;
@@ -326,7 +290,6 @@
     border-radius: var(--radius-none); /* ORIGINAL VALUE */
     box-sizing: border-box;
   }
-
   .meme-canvas{
     position:relative;
     width:100%;
@@ -336,7 +299,6 @@
     border: var(--border-width) solid var(--ink);
     border-radius: var(--radius-none); /* ORIGINAL VALUE */
   }
-  
   .meme-bg{
     position:absolute;
     inset:0;
@@ -344,7 +306,6 @@
     background-size:cover;
     background-repeat:no-repeat;
   }
-  
   .meme-text{
     position:absolute;
     width:90%;
@@ -357,10 +318,8 @@
     text-shadow: 4px 4px 0 var(--ink), -4px -4px 0 var(--ink), 4px -4px 0 var(--ink), -4px 4px 0 var(--ink);
     line-height:1.1;
   }
-  
   .top-text{ top:20px; }
   .bottom-text{ bottom:20px; }
-  
   .watermark{
     position:absolute;
     bottom:8px;
@@ -370,14 +329,12 @@
     text-shadow: 3px 3px 0 var(--ink);
     font-weight:900;
   }
-
   .action-buttons{
     display:flex;
     gap:20px; /* ORIGINAL VALUE */
     justify-content:center;
     flex-wrap:wrap;
   }
-
   .generate-btn-container {
       margin-top: 24px; /* ORIGINAL VALUE */
       text-align: center;
@@ -388,19 +345,16 @@
       font-size: 20px; /* ORIGINAL VALUE */
       padding: 20px 40px; /* ORIGINAL VALUE */
   }
-
   /* --- Stock Images Block --- */
   .images-block .block-header{ 
     background: var(--accent-header-stock); /* UPDATED: Steel Blue for images */
     color: var(--surface-light); /* UPDATED: White text */
   }
-  
   .gallery{
     display:grid;
     gap:16px; /* ORIGINAL VALUE */
     grid-template-columns:repeat(auto-fit, minmax(120px, 1fr)); /* ORIGINAL VALUE */
   }
-  
   .gallery-img{
     aspect-ratio:1/1;
     background:#ddd center/cover no-repeat;
@@ -412,7 +366,6 @@
     position: relative;
     overflow: hidden;
   }
-
   .gallery-img::after {
     content: "";
     position: absolute;
@@ -420,22 +373,18 @@
     background: rgba(0,0,0,0);
     transition: background 0.3s ease;
   }
-
   .gallery-img:hover::after {
     background: rgba(0,139,139,0.2); /* Dark Cyan overlay on hover - updated to be more vibrant than previous desaturated */
   }
-  
   .gallery-img:hover{ 
     transform:translate(-2px, -2px) scale(1.05); /* ORIGINAL VALUE */
     box-shadow: 6px 6px 0px var(--ink); /* ORIGINAL VALUE */
   }
-  
   .gallery-img.selected{ 
     border-color:var(--accent-primary-action); /* UPDATED: Crimson Red highlight for selected image */
     box-shadow: 0 0 0 4px var(--accent-primary-action), 4px 4px 0px var(--ink);
     transform: scale(1.05); /* ORIGINAL VALUE */
   }
-
   /* --- Toast --- */
   .toast{
     position:fixed;
@@ -454,12 +403,10 @@
     transition:all 0.3s ease;
     box-shadow: var(--shadow-brutal);
   }
-  
   .toast.show{ 
     opacity:1; 
     transform:translateX(-50%) translateY(-8px) rotate(-1deg); /* ORIGINAL VALUE */
   }
-
   /* --- Footer Styles --- */
   .footer-block {
     margin-top: 40px; /* ORIGINAL VALUE */
@@ -473,16 +420,13 @@
     font-weight: 600; /* ORIGINAL VALUE */
     transform: rotate(0deg); /* ORIGINAL VALUE */
   }
-
   .footer-block:hover {
     transform: rotate(0deg); 
   }
-
   .footer-block p {
     margin: 0 0 12px 0; /* ORIGINAL VALUE */
     line-height: 1.6; /* ORIGINAL VALUE */
   }
-
   .footer-block a {
     color: var(--accent-secondary-action); /* UPDATED: Orange link color */
     text-decoration: none;
@@ -490,19 +434,16 @@
     transition: color 0.2s ease;
     border-bottom: 2px solid transparent; /* ORIGINAL VALUE */
   }
-
   .footer-block a:hover {
     color: var(--accent-primary-action); /* UPDATED: Crimson Red on hover */
     border-bottom-color: var(--accent-primary-action);
   }
-
   /* --- Mobile Responsive --- */
   @media(max-width:768px){
     .container {
       padding: 16px;
       gap: 20px;
     }
-    
     .controls-grid{
       grid-template-columns:1fr;
     }
@@ -548,22 +489,18 @@
       font-size: 36px;
     }
   }
-
   /* Subtle hover animations only - no floating */
   .block {
     transform: rotate(-0.5deg); 
     transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
-
   .block:hover {
     transform: rotate(0deg) translateY(-2px);
     box-shadow: var(--shadow-mega);
   }
-
   .block:nth-child(even) {
     transform: rotate(0.5deg); 
   }
-
   .block:nth-child(even):hover {
     transform: rotate(0deg) translateY(-2px);
   }
@@ -573,21 +510,19 @@
   <div class="container">
     <div class="block header-block">
       <div class="logo-area">
-        <div class="logo">🏛️</div>
+        <div class="logo">ðŸ›ï¸</div>
         <div>
           <div class="brand-text">FEDMEMES</div>
           <div class="tagline">FAR-Compliant Memes</div>
         </div>
       </div>
-      
       <div class="stats-area">
-        <div class="stat-item">🔓 No Login No History</div>
-        <div class="stat-item">🌟 Add Your Own Brand</div>
+        <div class="stat-item">ðŸ”“ No Login No History</div>
+        <div class="stat-item">ðŸŒŸ Add Your Own Brand</div>
       </div>
     </div>
-
     <div class="block canvas-block">
-      <div class="block-header">🖼️ Your Masterpiece</div>
+      <div class="block-header">ðŸ–¼ï¸ Your Masterpiece</div>
       <div class="block-content">
         <div class="meme-polaroid-frame">
           <div class="meme-canvas" id="memeCanvas">
@@ -597,25 +532,21 @@
             <div class="watermark" id="watermarkEl"></div>
           </div>
         </div>
-        
         <div style="text-align:center; margin-bottom:16px; color:var(--ink-3); font-size:14px; font-family: 'Inter', sans-serif; font-weight: 600;">
           Click "Generate Meme" to create your final version
         </div>
-
         <div class="generate-btn-container">
-          <button class="btn btn-primary" id="generateBtn">🚀 Generate Meme</button>
+          <button class="btn btn-primary" id="generateBtn">ðŸš€ Generate Meme</button>
         </div>
-        
         <div class="action-buttons" style="margin-top: 24px;">
-          <button class="btn btn-secondary" id="downloadBtn">💾 Download</button>
-          <button class="btn btn-share" id="copyShareBtn">📋 Copy & Share</button>
+          <button class="btn btn-secondary" id="downloadBtn">ðŸ’¾ Download</button>
+          <button class="btn btn-share" id="copyShareBtn">ðŸ“‹ Copy & Share</button>
         </div>
       </div>
     </div>
-
     <div class="controls-grid">
       <div class="block upload-block">
-        <div class="block-header">📁 Upload Image</div>
+        <div class="block-header">ðŸ“ Upload Image</div>
         <div class="block-content">
           <div class="control">
             <label class="label">Choose Your File</label>
@@ -623,9 +554,8 @@
           </div>
         </div>
       </div>
-
       <div class="block text-block">
-        <div class="block-header">✏️ Customize Text</div>
+        <div class="block-header">âœï¸ Customize Text</div>
         <div class="block-content">
           <div class="control">
             <label class="label">Top Text</label>
@@ -637,9 +567,8 @@
           </div>
         </div>
       </div>
-
       <div class="block watermark-block">
-        <div class="block-header">🏷️ Add Watermark</div>
+        <div class="block-header">ðŸ·ï¸ Add Watermark</div>
         <div class="block-content">
           <div class="control">
             <label class="label">Your Brand (Optional)</label>
@@ -648,9 +577,8 @@
         </div>
       </div>
     </div>
-
     <div class="block images-block">
-      <div class="block-header">🎲 Pre-Made Memes - Click to Load & Edit</div>
+      <div class="block-header">ðŸŽ² Pre-Made Memes - Click to Load & Edit</div>
       <div class="block-content">
         <div class="gallery" id="gallery"></div>
         <div style="text-align:center; margin-top:16px; font-size:13px; color:var(--ink-3); font-family: 'Inter', sans-serif; font-weight: 600;">
@@ -659,39 +587,32 @@
       </div>
     </div>
   </div>
-
   <div id="toast" class="toast"></div>
   <canvas id="exportCanvas" style="display:none;"></canvas>
-
   <footer class="footer-block">
     <div style="max-width: 800px; margin: 0 auto;">
       <div style="margin-bottom: 32px;">
         <h3 style="color: var(--accent-electric); font-family: 'Impact', sans-serif; font-size: 24px; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 16px;">How to Create the Perfect FedMeme</h3>
-        
         <div style="display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); text-align: left;">
           <div>
-            <h4 style="color: var(--accent-yellow); font-family: 'Inter', sans-serif; font-weight: 800; font-size: 16px; margin-bottom: 8px; text-transform: uppercase;">📸 Choose Your Image</h4>
+            <h4 style="color: var(--accent-yellow); font-family: 'Inter', sans-serif; font-weight: 800; font-size: 16px; margin-bottom: 8px; text-transform: uppercase;">ðŸ“¸ Choose Your Image</h4>
             <p style="margin: 0; line-height: 1.5; font-size: 14px;">Pick from our curated pre-made memes or upload your own federal workplace moments. The funnier the facial expression, the better your meme will land!</p>
           </div>
-          
           <div>
-            <h4 style="color: var(--accent-coral); font-family: 'Inter', sans-serif; font-weight: 800; font-size: 16px; margin-bottom: 8px; text-transform: uppercase;">✏️ Add Your Text</h4>
+            <h4 style="color: var(--accent-coral); font-family: 'Inter', sans-serif; font-weight: 800; font-size: 16px; margin-bottom: 8px; text-transform: uppercase;">âœï¸ Add Your Text</h4>
             <p style="margin: 0; line-height: 1.5; font-size: 14px;">Use our pre-made memes or write your own. Keep it short and punchy - the best memes hit hard with minimal words. Federal jargon makes everything funnier!</p>
           </div>
-          
           <div>
-            <h4 style="color: var(--accent-blue); font-family: 'Inter', sans-serif; font-weight: 800; font-size: 16px; margin-bottom: 8px; text-transform: uppercase;">🚀 Generate & Share</h4>
+            <h4 style="color: var(--accent-blue); font-family: 'Inter', sans-serif; font-weight: 800; font-size: 16px; margin-bottom: 8px; text-transform: uppercase;">ðŸš€ Generate & Share</h4>
             <p style="margin: 0; line-height: 1.5; font-size: 14px;">Hit generate to create your masterpiece, then copy it directly to your clipboard. Perfect for Slack channels, team chats, or brightening up those all-hands meetings!</p>
           </div>
         </div>
       </div>
-      
       <div style="border-top: 2px solid var(--accent-electric); padding-top: 20px;">
         <p style="margin: 0 0 12px 0; font-size: 14px;">&copy; 2025 FedMemes.com. All rights reserved.</p>
       </div>
     </div>
   </footer>
-
 <script>
 const EXAMPLES = [
   { top: "Can't wait to see you in the office", bottom: "The office", img: "https://fedmemes.s3.us-east-1.amazonaws.com/cubicle.jpg" },
@@ -707,7 +628,6 @@ const EXAMPLES = [
   { top: "", bottom: "Waiting for KO to answer my clarifying question.", img: "https://fedmemes.s3.us-east-1.amazonaws.com/waiting.jpg" },
   { top: "MY SA", bottom: "WAITING TO EXPLAIN GenAI to Leadership", img: "https://fedmemes.s3.us-east-1.amazonaws.com/dude.jpg" }
 ];
-
 // Stock background images from S3 bucket - kept for reference but not used in gallery
 const STOCK_IMAGES = [
   "https://fedmemes.s3.us-east-1.amazonaws.com/tabby.jpg",
@@ -723,7 +643,6 @@ const STOCK_IMAGES = [
   "https://fedmemes.s3.us-east-1.amazonaws.com/charlie.jpg",
   "https://fedmemes.s3.us-east-1.amazonaws.com/dude.jpg"
 ];
-
 // Elements
 const topText = document.getElementById('topText');
 const bottomText = document.getElementById('bottomText');
@@ -739,25 +658,19 @@ const downloadBtn = document.getElementById('downloadBtn');
 const copyShareBtn = document.getElementById('copyShareBtn'); 
 const toast = document.getElementById('toast');
 const exportCanvas = document.getElementById('exportCanvas');
-
 let currentImage = null;
 let generatedMemeBlob = null;
-
 // Initialize
 function init() {
   const initialExample = EXAMPLES[Math.floor(Math.random() * EXAMPLES.length)]; 
   currentImage = initialExample.img; // Use the paired image
-  
   memeBg.style.backgroundImage = `url(${currentImage})`;
-  
   topText.value = initialExample.top; 
   bottomText.value = initialExample.bottom; 
-
   setupGallery();
   setupEventListeners();
   updateMeme(); 
 }
-
 function setupGallery() {
   gallery.innerHTML = '';
   // Use EXAMPLES instead of STOCK_IMAGES to show pre-made meme combinations
@@ -766,25 +679,20 @@ function setupGallery() {
     div.className = 'gallery-img';
     div.style.backgroundImage = `url(${example.img})`;
     div.setAttribute('data-index', index); // Store the example index
-    
     // Highlight the currently selected image
     if (example.img === currentImage) {
       div.classList.add('selected');
     }
-    
     div.onclick = () => {
       document.querySelectorAll('.gallery-img').forEach(img => img.classList.remove('selected'));
       div.classList.add('selected');
-      
       // Load both the image AND the text from the pre-made combination
       currentImage = example.img;
       memeBg.style.backgroundImage = `url(${currentImage})`;
       topText.value = example.top;
       bottomText.value = example.bottom;
       updateMeme();
-      
-      showToast('Pre-made meme loaded! 🎉 Edit the text if you want!');
-      
+      showToast('Pre-made meme loaded! ðŸŽ‰ Edit the text if you want!');
       // Auto-scroll to canvas area
       document.querySelector('.canvas-block').scrollIntoView({ 
         behavior: 'smooth', 
@@ -794,12 +702,10 @@ function setupGallery() {
     gallery.appendChild(div);
   });
 }
-
 function setupEventListeners() {
   topText.addEventListener('input', updateMeme);
   bottomText.addEventListener('input', updateMeme);
   watermark.addEventListener('input', updateMeme);
-  
   imageUpload.addEventListener('change', (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -808,52 +714,43 @@ function setupEventListeners() {
         currentImage = e.target.result;
         memeBg.style.backgroundImage = `url(${currentImage})`;
         document.querySelectorAll('.gallery-img').forEach(img => img.classList.remove('selected'));
-        showToast('Custom image uploaded! 🖼️');
+        showToast('Custom image uploaded! ðŸ–¼ï¸');
       };
       reader.readAsDataURL(file);
     }
   });
-
   generateBtn.addEventListener('click', generateMeme);
   downloadBtn.addEventListener('click', downloadMeme);
   copyShareBtn.addEventListener('click', copyAndShare); 
 }
-
 function updateMeme() {
   topTextEl.textContent = topText.value.toUpperCase();
   bottomTextEl.textContent = bottomText.value.toUpperCase();
   watermarkEl.textContent = watermark.value;
   watermarkEl.style.display = watermark.value ? 'block' : 'none';
 }
-
 async function generateMeme() {
   const canvas = exportCanvas;
   const ctx = canvas.getContext('2d');
   canvas.width = 800;
   canvas.height = 800;
-
   // Black background
   ctx.fillStyle = '#000';
   ctx.fillRect(0, 0, 800, 800);
-
   // Draw background image if exists with proper aspect ratio handling
   if (currentImage) {
     const img = new Image();
-    
     // Critical: Set crossOrigin BEFORE setting src
     if (currentImage.startsWith('https://fedmemes.s3.us-east-1.amazonaws.com/')) {
       img.crossOrigin = 'anonymous';
     }
-    
     await new Promise((resolve, reject) => {
       img.onload = () => {
         try {
           // Calculate dimensions to maintain aspect ratio and cover the canvas
           const canvasAspect = canvas.width / canvas.height;
           const imgAspect = img.width / img.height;
-          
           let drawWidth, drawHeight, offsetX, offsetY;
-          
           if (imgAspect > canvasAspect) {
             // Image is wider than canvas - fit to height, crop sides
             drawHeight = canvas.height;
@@ -867,7 +764,6 @@ async function generateMeme() {
             offsetX = 0;
             offsetY = (canvas.height - drawHeight) / 2;
           }
-          
           ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
           console.log('Image drawn successfully');
           resolve();
@@ -883,14 +779,12 @@ async function generateMeme() {
       img.src = currentImage;
     });
   }
-
   // Text styling
   ctx.fillStyle = '#fff';
   ctx.strokeStyle = '#000';
   ctx.lineWidth = 4;
   ctx.textAlign = 'center';
   ctx.font = 'bold 48px Impact, Arial';
-
   // Top text
   const topLines = wrapText(ctx, topText.value.toUpperCase(), 750);
   topLines.forEach((line, i) => {
@@ -898,7 +792,6 @@ async function generateMeme() {
     ctx.strokeText(line, 400, y);
     ctx.fillText(line, 400, y);
   });
-
   // Bottom text
   const bottomLines = wrapText(ctx, bottomText.value.toUpperCase(), 750);
   bottomLines.reverse().forEach((line, i) => {
@@ -906,7 +799,6 @@ async function generateMeme() {
     ctx.strokeText(line, 400, y);
     ctx.fillText(line, 400, y);
   });
-
   // Watermark
   if (watermark.value) {
     ctx.font = 'bold 24px Arial';
@@ -917,12 +809,11 @@ async function generateMeme() {
     ctx.strokeText(watermark.value, 20, 770);
     ctx.fillText(watermark.value, 20, 770);
   }
-
   return new Promise((resolve) => {
     canvas.toBlob((blob) => {
       if (blob) {
         generatedMemeBlob = blob;
-        showToast('Meme generated! Ready to share 🎉');
+        showToast('Meme generated! Ready to share ðŸŽ‰');
       } else {
         console.error('Failed to generate blob from canvas');
         showToast('Error generating meme. Please try again.');
@@ -931,55 +822,47 @@ async function generateMeme() {
     }, 'image/png');
   });
 }
-
 async function downloadMeme() {
   if (!generatedMemeBlob) {
     await generateMeme();
   }
-  
   const url = URL.createObjectURL(generatedMemeBlob);
   const a = document.createElement('a');
   a.href = url;
   a.download = `fedmeme-${Date.now()}.png`;
   a.click();
   URL.revokeObjectURL(url);
-  showToast('Meme downloaded! 💾 Find it in your downloads folder.');
+  showToast('Meme downloaded! ðŸ’¾ Find it in your downloads folder.');
 }
-
 async function copyAndShare() {
     if (!generatedMemeBlob) {
         await generateMeme();
     }
-
     const memeText = `${topText.value}\n${bottomText.value}\n\n#FedMemes`;
-
     // Try to copy the IMAGE to clipboard first (works great on most devices)
     try {
         const item = new ClipboardItem({'image/png': generatedMemeBlob});
         await navigator.clipboard.write([item]);
-        showToast('✅ Meme copied to clipboard! Now paste it anywhere you want to share.');
+        showToast('âœ… Meme copied to clipboard! Now paste it anywhere you want to share.');
         return; // Exit after successful copy
     } catch (err) {
         console.warn('Image clipboard not supported, trying text fallback:', err);
     }
-
     // Fallback: Copy text only and prompt download
     try {
         await navigator.clipboard.writeText(memeText);
-        showToast('📋 Text copied! Downloading image so you can share both.');
+        showToast('ðŸ“‹ Text copied! Downloading image so you can share both.');
         downloadMeme(); // Auto-download the image
     } catch (err) {
         console.error('Clipboard not supported:', err);
-        showToast('📱 Clipboard not available. Downloading your meme now!');
+        showToast('ðŸ“± Clipboard not available. Downloading your meme now!');
         downloadMeme(); // Just download if nothing else works
     }
 }
-
 function wrapText(ctx, text, maxWidth) {
   const words = text.split(' ');
   const lines = [];
   let currentLine = words[0];
-
   for (let i = 1; i < words.length; i++) {
     const word = words[i];
     const width = ctx.measureText(currentLine + ' ' + word).width;
@@ -993,7 +876,6 @@ function wrapText(ctx, text, maxWidth) {
   lines.push(currentLine);
   return lines;
 }
-
 function showToast(message) {
   toast.textContent = message;
   toast.classList.add('show');
@@ -1001,7 +883,6 @@ function showToast(message) {
     toast.classList.remove('show');
   }, 3000);
 }
-
 // Start the app
 init();
 </script>
