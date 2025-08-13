@@ -4,9 +4,6 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>FedMemes Meme Generator</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&family=Impact&display=swap" rel="stylesheet">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZDP1NY9F83"></script>
 <script>
@@ -17,6 +14,10 @@
   gtag('config', 'G-ZDP1NY9F83');
 </script>
 <style>
+  /* Import fonts directly in CSS */
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Impact&display=swap');
+  
   /* --- Re-calibrated Brutalist Color Palette for Readability --- */
   :root {
     /* Base & Neutral Colors */
@@ -56,7 +57,7 @@
   body{
     background:var(--bg);
     color:var(--ink);
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
     font-weight: 500; 
     display: flex; 
     flex-direction: column;
@@ -68,14 +69,14 @@
   .brand-text,
   .btn,
   .toast {
-    font-family: 'Impact', sans-serif;
+    font-family: 'Impact', 'Arial Black', 'Franklin Gothic Bold', 'Helvetica Neue', Arial, sans-serif;
     font-weight: 700; 
     letter-spacing: 0.05em; 
     text-transform: uppercase;
   }
 
   .label {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
     font-weight: 700; 
     text-transform: uppercase;
     letter-spacing: 0.03em; 
@@ -83,7 +84,7 @@
   }
 
   .meme-text {
-      font-family: 'Impact', sans-serif;
+      font-family: 'Impact', 'Arial Black', 'Franklin Gothic Bold', 'Helvetica Neue', Arial, sans-serif;
       font-weight: 900;
   }
 
@@ -236,7 +237,7 @@
     font-weight:500; 
     background:var(--surface-light);
     box-shadow: var(--shadow-inset);
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
   }
   
   textarea{
@@ -582,7 +583,7 @@
         </div>
       </div>
       
-      <div class="stats-area">
+        <div class="stats-area">
         <div class="stat-item">🔓 No Login No History</div>
         <div class="stat-item">🌟 Add Your Own Brand</div>
       </div>
@@ -705,7 +706,7 @@ const EXAMPLES = [
   { top: "Submission Deadline: 5:00PM", bottom: "4:59PM - Your Submission Was Accepted.", img: "https://fedmemes.s3.us-east-1.amazonaws.com/successkid.jpg" },
   { top: "Set Aside", bottom: "SDVOSB", img: "https://fedmemes.s3.us-east-1.amazonaws.com/drake.jpg" },
   { top: "KO PRACTICING FOR", bottom: "END OF FY", img: "https://fedmemes.s3.us-east-1.amazonaws.com/wolf.jpg" },
-  { top: "LINKEDIN EXPLAINING", bottom: "HOW VIDEO INCREASES ENGAGEMENT", img: "https://fedmemes.s3.us-east-1.amazonaws.com/charlie.jpg" },
+  { top: "", bottom: "ME EXPLAINING MY PIPELINE", img: "https://fedmemes.s3.us-east-1.amazonaws.com/charlie.jpg" },
   { top: "", bottom: "Waiting for KO to answer my clarifying question.", img: "https://fedmemes.s3.us-east-1.amazonaws.com/waiting.jpg" },
   { top: "MY SA", bottom: "WAITING TO EXPLAIN GenAI to Leadership", img: "https://fedmemes.s3.us-east-1.amazonaws.com/dude.jpg" }
 ];
