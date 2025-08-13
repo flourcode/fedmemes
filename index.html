@@ -314,7 +314,7 @@
     right: 0;
     height: 48px; /* ORIGINAL VALUE */
     background: var(--surface-light);
-
+    border-top: var(--border-width) solid var(--ink);
     border-radius: var(--radius-none); /* ORIGINAL VALUE */
     box-sizing: border-box;
   }
@@ -379,73 +379,6 @@
       max-width: 350px; /* ORIGINAL VALUE */
       font-size: 20px; /* ORIGINAL VALUE */
       padding: 20px 40px; /* ORIGINAL VALUE */
-  }
-
-  /* --- Examples Block --- */
-  .examples-block .block-header{ 
-    background: var(--accent-header-examples); /* UPDATED: Firebrick (Darker Red) for examples */
-    color: var(--surface-light); /* UPDATED: White text */
-  }
-  
-  .examples-grid{
-    display:grid;
-    gap:16px; /* ORIGINAL VALUE */
-    grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); /* ORIGINAL VALUE */
-  }
-  
-  .example{
-    padding:20px; /* ORIGINAL VALUE */
-    border:var(--border-width) solid var(--ink);
-    border-radius: var(--radius-none); /* ORIGINAL VALUE */
-    background:var(--surface-light);
-    cursor:pointer;
-    transition:all 0.2s ease;
-    font-size:14px;
-    box-shadow: 4px 4px 0px var(--ink);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .example::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 4px;
-    height: 100%;
-    background: var(--accent-primary-action); /* UPDATED: Crimson Red accent bar */
-    transform: scaleY(0);
-    transition: transform 0.3s ease;
-  }
-
-  .example:hover::before {
-    transform: scaleY(1);
-  }
-  
-  .example:hover{ 
-    transform:translate(-4px, -4px); /* ORIGINAL VALUE */
-    box-shadow: 8px 8px 0px var(--ink); 
-    background-color: var(--surface-mid);
-  }
-  .example:active{ 
-    transform:translate(2px, 2px); /* ORIGINAL VALUE */
-    box-shadow: 2px 2px 0px var(--ink); 
-  }
-  
-  .example strong{
-    color:var(--ink);
-    display:block;
-    margin-bottom:8px; /* ORIGINAL VALUE */
-    font-family: 'Inter', sans-serif;
-    font-weight: 800;
-    font-size: 15px; /* ORIGINAL VALUE */
-  }
-  
-  .example em{
-    color:var(--ink-2);
-    font-style:normal;
-    font-weight:600;
-    font-family: 'Inter', sans-serif;
   }
 
   /* --- Stock Images Block --- */
@@ -565,9 +498,6 @@
     .controls-grid{
       grid-template-columns:1fr;
     }
-    .examples-grid{
-      grid-template-columns:1fr;
-    }
     .gallery{
       grid-template-columns:repeat(3, 1fr);
     }
@@ -638,19 +568,18 @@
         <div class="logo">🏛️</div>
         <div>
           <div class="brand-text">FEDMEMES</div>
-          <div class="tagline">Generate FAR-Compliant Memes</div>
+          <div class="tagline">FAR-Compliant Memes</div>
         </div>
       </div>
       
       <div class="stats-area">
-        <div class="stat-item">📱 Mobile ready</div>
-        <div class="stat-item">🔓 No login</div>
-        <div class="stat-item">📍 LinkedIn perfect</div>
+        <div class="stat-item">🔓 No Login No History</div>
+        <div class="stat-item">📍 Sized for LinkedIn</div>
       </div>
     </div>
 
     <div class="block canvas-block">
-      <div class="block-header">🖼️ Your Meme Masterpiece</div>
+      <div class="block-header">🖼️ Your Masterpiece</div>
       <div class="block-content">
         <div class="meme-polaroid-frame">
           <div class="meme-canvas" id="memeCanvas">
@@ -713,19 +642,12 @@
     </div>
 
     <div class="block images-block">
-      <div class="block-header">🖼️ Choose Stock Photo</div>
+      <div class="block-header">🎲 Pre-Made Memes - Click to Load & Edit</div>
       <div class="block-content">
         <div class="gallery" id="gallery"></div>
         <div style="text-align:center; margin-top:16px; font-size:13px; color:var(--ink-3); font-family: 'Inter', sans-serif; font-weight: 600;">
-          Click an image to use as background
+          Click a meme to load the image and text, then edit as needed
         </div>
-      </div>
-    </div>
-
-    <div class="block examples-block">
-      <div class="block-header">🎲 Quick Examples</div>
-      <div class="block-content">
-        <div class="examples-grid" id="examples"></div>
       </div>
     </div>
   </div>
@@ -741,12 +663,12 @@
         <div style="display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); text-align: left;">
           <div>
             <h4 style="color: var(--accent-yellow); font-family: 'Inter', sans-serif; font-weight: 800; font-size: 16px; margin-bottom: 8px; text-transform: uppercase;">📸 Choose Your Image</h4>
-            <p style="margin: 0; line-height: 1.5; font-size: 14px;">Pick from our curated stock photos or upload your own federal workplace moments. The funnier the facial expression, the better your meme will land!</p>
+            <p style="margin: 0; line-height: 1.5; font-size: 14px;">Pick from our curated pre-made memes or upload your own federal workplace moments. The funnier the facial expression, the better your meme will land!</p>
           </div>
           
           <div>
             <h4 style="color: var(--accent-coral); font-family: 'Inter', sans-serif; font-weight: 800; font-size: 16px; margin-bottom: 8px; text-transform: uppercase;">✏️ Add Your Text</h4>
-            <p style="margin: 0; line-height: 1.5; font-size: 14px;">Use our quick examples or write your own. Keep it short and punchy - the best memes hit hard with minimal words. Federal jargon makes everything funnier!</p>
+            <p style="margin: 0; line-height: 1.5; font-size: 14px;">Use our pre-made memes or write your own. Keep it short and punchy - the best memes hit hard with minimal words. Federal jargon makes everything funnier!</p>
           </div>
           
           <div>
@@ -758,37 +680,39 @@
       
       <div style="border-top: 2px solid var(--accent-electric); padding-top: 20px;">
         <p style="margin: 0 0 12px 0; font-size: 14px;">&copy; 2025 FedMemes.com. All rights reserved.</p>
-        <p style="margin: 0; font-size: 14px;">
-          For DMCA Takedown requests, please email 
-          <a href="mailto:dmca.takedown@example.com">dmca.takedown@example.com</a>.
-        </p>
       </div>
     </div>
   </footer>
 
 <script>
 const EXAMPLES = [
-  { top: "We can't wait to see you in the office", bottom: "The office", img: "https://fedmemes.s3.us-east-1.amazonaws.com/cubicle.jpg" },
-  { top: "Free POC Credits", bottom: "Forgot to delete RDS", img: "https://fedmemes.s3.us-east-1.amazonaws.com/firstworld.jpg" },
-  { top: "Small biz partner", bottom: "The real MVP", img: "https://fedmemes.s3.us-east-1.amazonaws.com/chair.jpg" },
-  { top: "FedRAMP status", bottom: "In Process. I'm sure. Maybe.", img: "https://fedmemes.s3.us-east-1.amazonaws.com/alpaca.jpg" },
-  { top: "QBR", bottom: "120 slides. 1 HDMI.", img: "https://fedmemes.s3.us-east-1.amazonaws.com/duck.jpg" },
-  { top: "Congratulations", bottom: "on your congratulations", img: "https://fedmemes.s3.us-east-1.amazonaws.com/dog.jpg" },
-  { top: "CPARS Five Stars", bottom: "Lost on price", img: "https://fedmemes.s3.us-east-1.amazonaws.com/tabby.jpg" },
-  { top: "Set Aside", bottom: "my hopes", img: "https://fedmemes.s3.us-east-1.amazonaws.com/cat.jpg" },
-  { top: "New Agency Opportunities", bottom: "From 2017", img: "https://fedmemes.s3.us-east-1.amazonaws.com/dude.jpg" }
+  { top: "Can't wait to see you in the office", bottom: "The office", img: "https://fedmemes.s3.us-east-1.amazonaws.com/cubicle.jpg" },
+  { top: "Free POC Credits", bottom: "I Forgot to delete RDS", img: "https://fedmemes.s3.us-east-1.amazonaws.com/firstworld.jpg" },
+  { top: "QBR", bottom: "120 slides. 1 HDMI. 0 Donuts.", img: "https://fedmemes.s3.us-east-1.amazonaws.com/duck.jpg" },
+  { top: "Congratulations", bottom: "on your congratulations", img: "https://fedmemes.s3.us-east-1.amazonaws.com/cat.jpg" },
+  { top: "CPARS Five Stars", bottom: "LPTA", img: "https://fedmemes.s3.us-east-1.amazonaws.com/tabby.jpg" },
+  { top: "I'm not saying it's sole source but...", bottom: "it's sole source", img: "https://fedmemes.s3.us-east-1.amazonaws.com/aliens.jpg" },
+  { top: "Submission Deadline: 5:00PM", bottom: "4:59PM - Your Submission Was Accepted.", img: "https://fedmemes.s3.us-east-1.amazonaws.com/successkid.jpg" },
+  { top: "Set Aside", bottom: "SDVOSB", img: "https://fedmemes.s3.us-east-1.amazonaws.com/drake.jpg" },
+  { top: "KO PRACTICING FOR", bottom: "END OF FY", img: "https://fedmemes.s3.us-east-1.amazonaws.com/wolf.jpg" },
+  { top: "LINKEDIN EXPLAINING", bottom: "HOW VIDEO INCREASES ENGAGEMENT", img: "https://fedmemes.s3.us-east-1.amazonaws.com/charlie.jpg" },
+  { top: "", bottom: "Waiting for KO to answer my clarifying question.", img: "https://fedmemes.s3.us-east-1.amazonaws.com/waiting.jpg" },
+  { top: "MY SA", bottom: "WAITING TO EXPLAIN GenAI to Leadership", img: "https://fedmemes.s3.us-east-1.amazonaws.com/dude.jpg" }
 ];
 
-// Stock background images from S3 bucket
+// Stock background images from S3 bucket - kept for reference but not used in gallery
 const STOCK_IMAGES = [
   "https://fedmemes.s3.us-east-1.amazonaws.com/tabby.jpg",
   "https://fedmemes.s3.us-east-1.amazonaws.com/duck.jpg",
   "https://fedmemes.s3.us-east-1.amazonaws.com/cubicle.jpg",
-  "https://fedmemes.s3.us-east-1.amazonaws.com/chair.jpg",
-  "https://fedmemes.s3.us-east-1.amazonaws.com/dog.jpg",
   "https://fedmemes.s3.us-east-1.amazonaws.com/cat.jpg",
-  "https://fedmemes.s3.us-east-1.amazonaws.com/alpaca.jpg",
   "https://fedmemes.s3.us-east-1.amazonaws.com/firstworld.jpg",
+  "https://fedmemes.s3.us-east-1.amazonaws.com/drake.jpg",
+  "https://fedmemes.s3.us-east-1.amazonaws.com/aliens.jpg",
+  "https://fedmemes.s3.us-east-1.amazonaws.com/waiting.jpg",
+  "https://fedmemes.s3.us-east-1.amazonaws.com/successkid.jpg",
+  "https://fedmemes.s3.us-east-1.amazonaws.com/wolf.jpg",
+  "https://fedmemes.s3.us-east-1.amazonaws.com/charlie.jpg",
   "https://fedmemes.s3.us-east-1.amazonaws.com/dude.jpg"
 ];
 
@@ -802,7 +726,6 @@ const watermarkEl = document.getElementById('watermarkEl');
 const memeBg = document.getElementById('memeBg');
 const imageUpload = document.getElementById('imageUpload');
 const gallery = document.getElementById('gallery');
-const examples = document.getElementById('examples');
 const generateBtn = document.getElementById('generateBtn');
 const downloadBtn = document.getElementById('downloadBtn');
 const copyShareBtn = document.getElementById('copyShareBtn'); 
@@ -822,63 +745,37 @@ function init() {
   topText.value = initialExample.top; 
   bottomText.value = initialExample.bottom; 
 
-  setupExamples();
   setupGallery();
   setupEventListeners();
   updateMeme(); 
 }
 
-function setupExamples() {
-  examples.innerHTML = '';
-  EXAMPLES.forEach(example => {
-    const div = document.createElement('div');
-    div.className = 'example';
-    div.innerHTML = `<strong>"${example.top}"</strong><em>"${example.bottom}"</em>`;
-    div.onclick = () => {
-      topText.value = example.top;
-      bottomText.value = example.bottom;
-      currentImage = example.img; // Set the paired image
-      memeBg.style.backgroundImage = `url(${currentImage})`;
-      
-      // Update gallery selection to show the paired image
-      document.querySelectorAll('.gallery-img').forEach(img => img.classList.remove('selected'));
-      const selectedGalleryImg = document.querySelector(`.gallery-img[data-url="${example.img}"]`);
-      if (selectedGalleryImg) {
-        selectedGalleryImg.classList.add('selected');
-      }
-      
-      updateMeme();
-      showToast('Example loaded! 🎉');
-      
-      // Auto-scroll to canvas area
-      document.querySelector('.canvas-block').scrollIntoView({ 
-        behavior: 'smooth', 
-        block: 'start' 
-      });
-    };
-    examples.appendChild(div);
-  });
-}
-
 function setupGallery() {
   gallery.innerHTML = '';
-  STOCK_IMAGES.forEach((url, index) => {
+  // Use EXAMPLES instead of STOCK_IMAGES to show pre-made meme combinations
+  EXAMPLES.forEach((example, index) => {
     const div = document.createElement('div');
     div.className = 'gallery-img';
-    div.style.backgroundImage = `url(${url})`;
-    div.setAttribute('data-url', url); // Add data attribute for selection
+    div.style.backgroundImage = `url(${example.img})`;
+    div.setAttribute('data-index', index); // Store the example index
     
     // Highlight the currently selected image
-    if (url === currentImage) {
+    if (example.img === currentImage) {
       div.classList.add('selected');
     }
     
     div.onclick = () => {
       document.querySelectorAll('.gallery-img').forEach(img => img.classList.remove('selected'));
       div.classList.add('selected');
-      currentImage = url;
-      memeBg.style.backgroundImage = `url(${url})`;
-      showToast('Image selected! 📸');
+      
+      // Load both the image AND the text from the pre-made combination
+      currentImage = example.img;
+      memeBg.style.backgroundImage = `url(${currentImage})`;
+      topText.value = example.top;
+      bottomText.value = example.bottom;
+      updateMeme();
+      
+      showToast('Pre-made meme loaded! 🎉 Edit the text if you want!');
       
       // Auto-scroll to canvas area
       document.querySelector('.canvas-block').scrollIntoView({ 
