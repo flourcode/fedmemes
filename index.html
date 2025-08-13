@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>FedMemes - Meme Maker</title>
+<title>FedMemes Meme Generator</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&family=Impact&display=swap" rel="stylesheet">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZDP1NY9F83"></script>
@@ -580,7 +580,7 @@
         </div>
       </div>
       
-      <div class="stats-area">
+            <div class="stats-area">
         <div class="stat-item">🔓 No Login No History</div>
         <div class="stat-item">🌟 Add Your Own Brand</div>
       </div>
@@ -694,34 +694,34 @@
 
 <script>
 const EXAMPLES = [
-  { top: "Can't wait to see you in the office", bottom: "The office", img: "https://fedmemes.s3.us-east-1.amazonaws.com/cubicle.jpg" },
-  { top: "Free POC Credits", bottom: "I Forgot to delete RDS", img: "https://fedmemes.s3.us-east-1.amazonaws.com/firstworld.jpg" },
-  { top: "QBR", bottom: "120 slides. 1 HDMI. 0 Donuts.", img: "https://fedmemes.s3.us-east-1.amazonaws.com/duck.jpg" },
-  { top: "Congratulations", bottom: "on your congratulations", img: "https://fedmemes.s3.us-east-1.amazonaws.com/cat.jpg" },
-  { top: "CPARS Five Stars", bottom: "LPTA", img: "https://fedmemes.s3.us-east-1.amazonaws.com/tabby.jpg" },
-  { top: "I'm not saying it's sole source but...", bottom: "it's sole source", img: "https://fedmemes.s3.us-east-1.amazonaws.com/aliens.jpg" },
-  { top: "Submission Deadline: 5:00PM", bottom: "4:59PM - Your Submission Was Accepted.", img: "https://fedmemes.s3.us-east-1.amazonaws.com/successkid.jpg" },
-  { top: "Set Aside", bottom: "SDVOSB", img: "https://fedmemes.s3.us-east-1.amazonaws.com/drake.jpg" },
-  { top: "KO PRACTICING FOR", bottom: "END OF FY", img: "https://fedmemes.s3.us-east-1.amazonaws.com/wolf.jpg" },
-  { top: "LINKEDIN EXPLAINING", bottom: "HOW VIDEO INCREASES ENGAGEMENT", img: "https://fedmemes.s3.us-east-1.amazonaws.com/charlie.jpg" },
-  { top: "", bottom: "Waiting for KO to answer my clarifying question.", img: "https://fedmemes.s3.us-east-1.amazonaws.com/waiting.jpg" },
-  { top: "MY SA", bottom: "WAITING TO EXPLAIN GenAI to Leadership", img: "https://fedmemes.s3.us-east-1.amazonaws.com/dude.jpg" }
+  { top: "Can't wait to see you in the office", bottom: "The office", img: "https://fedmemes.com/images/cubicle.jpg" },
+  { top: "Free POC Credits", bottom: "I Forgot to delete RDS", img: "https://fedmemes.com/images/firstworld.jpg" },
+  { top: "QBR", bottom: "120 slides. 1 HDMI. 0 Donuts.", img: "https://fedmemes.com/images/duck.jpg" },
+  { top: "Congratulations", bottom: "on your congratulations", img: "https://fedmemes.com/images/cat.jpg" },
+  { top: "CPARS Five Stars", bottom: "LPTA", img: "https://fedmemes.com/images/tabby.jpg" },
+  { top: "I'm not saying it's sole source but...", bottom: "it's sole source", img: "https://fedmemes.com/images/aliens.jpg" },
+  { top: "Submission Deadline: 5:00PM", bottom: "4:59PM - Your Submission Was Accepted.", img: "https://fedmemes.com/images/successkid.jpg" },
+  { top: "Set Aside", bottom: "SDVOSB", img: "https://fedmemes.com/images/drake.jpg" },
+  { top: "KO PRACTICING FOR", bottom: "END OF FY", img: "https://fedmemes.com/images/wolf.jpg" },
+  { top: "LINKEDIN EXPLAINING", bottom: "HOW VIDEO INCREASES ENGAGEMENT", img: "https://fedmemes.com/images/charlie.jpg" },
+  { top: "", bottom: "Waiting for KO to answer my clarifying question.", img: "https://fedmemes.com/images/waiting.jpg" },
+  { top: "MY SA", bottom: "WAITING TO EXPLAIN GenAI to Leadership", img: "https://fedmemes.com/images/dude.jpg" }
 ];
 
-// Stock background images from S3 bucket - kept for reference but not used in gallery
+// Stock background images from same domain - kept for reference but not used in gallery
 const STOCK_IMAGES = [
-  "https://fedmemes.s3.us-east-1.amazonaws.com/tabby.jpg",
-  "https://fedmemes.s3.us-east-1.amazonaws.com/duck.jpg",
-  "https://fedmemes.s3.us-east-1.amazonaws.com/cubicle.jpg",
-  "https://fedmemes.s3.us-east-1.amazonaws.com/cat.jpg",
-  "https://fedmemes.s3.us-east-1.amazonaws.com/firstworld.jpg",
-  "https://fedmemes.s3.us-east-1.amazonaws.com/drake.jpg",
-  "https://fedmemes.s3.us-east-1.amazonaws.com/aliens.jpg",
-  "https://fedmemes.s3.us-east-1.amazonaws.com/waiting.jpg",
-  "https://fedmemes.s3.us-east-1.amazonaws.com/successkid.jpg",
-  "https://fedmemes.s3.us-east-1.amazonaws.com/wolf.jpg",
-  "https://fedmemes.s3.us-east-1.amazonaws.com/charlie.jpg",
-  "https://fedmemes.s3.us-east-1.amazonaws.com/dude.jpg"
+  "https://fedmemes.com/images/tabby.jpg",
+  "https://fedmemes.com/images/duck.jpg",
+  "https://fedmemes.com/images/cubicle.jpg",
+  "https://fedmemes.com/images/cat.jpg",
+  "https://fedmemes.com/images/firstworld.jpg",
+  "https://fedmemes.com/images/drake.jpg",
+  "https://fedmemes.com/images/aliens.jpg",
+  "https://fedmemes.com/images/waiting.jpg",
+  "https://fedmemes.com/images/successkid.jpg",
+  "https://fedmemes.com/images/wolf.jpg",
+  "https://fedmemes.com/images/charlie.jpg",
+  "https://fedmemes.com/images/dude.jpg"
 ];
 
 // Elements
@@ -840,8 +840,13 @@ async function generateMeme() {
   if (currentImage) {
     const img = new Image();
     
-    // Critical: Set crossOrigin BEFORE setting src
-    if (currentImage.startsWith('https://fedmemes.s3.us-east-1.amazonaws.com/')) {
+    // Critical: Set crossOrigin BEFORE setting src (no longer needed for same-domain images)
+    if (currentImage.startsWith('https://fedmemes.com/images/')) {
+      // Same domain - no CORS needed
+    } else if (currentImage.startsWith('data:')) {
+      // Base64 image - no CORS needed  
+    } else {
+      // External image - set CORS
       img.crossOrigin = 'anonymous';
     }
     
