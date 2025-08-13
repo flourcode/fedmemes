@@ -4,176 +4,349 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>FedMemes Meme Generator</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&family=Impact&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --bg:#f0f0f0;
-    --ink:#000;
-    --ink-2:#666;
-    --red:#ff4444;
-    --blue:#4488ff;
-    --green:#44ff88;
-    --yellow:#ffdd44;
-    --purple:#aa44ff;
-    --orange:#ff8844;
-    --cyan:#44ffff;
-    --pink:#ff44aa;
+  /* --- Enhanced Neobrutalist Color Palette --- */
+  :root {
+    /* Base & Neutral Colors */
+    --bg: #F5F5F0; /* Warm cream background inspired by the design examples */
+    --surface-light: #FFFFFF; /* Pure white for main card surfaces */
+    --surface-mid: #EFEFEF; /* Light gray for subtle variations */
+    --surface-dark: #1A1A1A; /* Deep black for strong contrasts */
+
+    /* Ink Colors */
+    --ink: #000000; /* Pure black for borders and text */
+    --ink-2: #2A2A2A; /* Dark gray for secondary text */
+    --ink-3: #666666; /* Medium gray for tertiary text */
+
+    /* Bold Neobrutalist Colors */
+    --accent-electric: #00FF94; /* Electric green for primary actions */
+    --accent-coral: #FF6B6B; /* Vibrant coral for highlights */
+    --accent-yellow: #FFE066; /* Bright yellow for warnings/attention */
+    --accent-blue: #4ECDC4; /* Teal blue for info elements */
+    --accent-purple: #A8E6CF; /* Soft mint green for special elements */
+    --accent-orange: #FF8E53; /* Warm orange for secondary actions */
+    
+    /* Enhanced UI properties */
+    --border-width: 3px; /* Thicker borders for more impact */
+    --radius-none: 0px; /* Sharp corners for true brutalist feel */
+    --radius-soft: 8px; /* Minimal rounding when needed */
+    --shadow-brutal: 8px 8px 0px var(--ink); /* Strong, offset shadow */
+    --shadow-mega: 12px 12px 0px var(--ink); /* Extra strong shadow for key elements */
+    --shadow-inset: inset 4px 4px 0px rgba(0,0,0,0.1); /* Inset shadow for depth */
   }
   
+  /* --- Global Resets & Typography --- */
   *{box-sizing:border-box}
   html,body{height:100%; margin:0; padding:0}
   body{
     background:var(--bg);
     color:var(--ink);
-    font-family: 'Arial Black', Arial, sans-serif;
-    font-weight:900;
-    display: flex; /* Flexbox for full height layout */
+    font-family: 'Inter', sans-serif;
+    font-weight: 600; /* Bolder base weight */
+    display: flex; 
     flex-direction: column;
+    line-height: 1.4;
+  }
+
+  /* Specific elements for bolder, meme-style impact font */
+  .block-header,
+  .brand-text,
+  .btn,
+  .toast {
+    font-family: 'Impact', sans-serif;
+    font-weight: 900;
+    letter-spacing: 0.1em; /* More dramatic letter spacing */
+    text-transform: uppercase;
+  }
+
+  .label {
+    font-family: 'Inter', sans-serif;
+    font-weight: 800; /* Bolder labels */
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 14px; /* Slightly larger */
+  }
+
+  .meme-text {
+      font-family: 'Impact', sans-serif;
+      font-weight: 900;
   }
 
   .container{
-    max-width:900px; 
+    max-width:1000px; /* Slightly wider */
     margin:0 auto; 
-    padding:20px;
+    padding:24px;
     display:grid; 
-    gap:20px;
-    flex-grow: 1; /* Allows container to take available space */
+    gap:24px; /* Larger gaps */
+    flex-grow: 1; 
   }
 
-  /* Brutalist Block Cards */
+  /* --- UI Blocks --- */
   .block{
-    border:4px solid #000;
+    border:var(--border-width) solid var(--ink);
+    border-radius: var(--radius-none); /* Sharp corners */
     overflow:hidden;
-    box-shadow: 8px 8px 0px #000;
+    box-shadow: var(--shadow-brutal);
+    background: var(--surface-light);
+    transform: rotate(-0.5deg); /* Subtle rotation for dynamism */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .block:hover {
+    transform: rotate(0deg) translateY(-2px);
+    box-shadow: var(--shadow-mega);
+  }
+
+  .block:nth-child(even) {
+    transform: rotate(0.5deg); /* Alternate rotation */
+  }
+
+  .block:nth-child(even):hover {
+    transform: rotate(0deg) translateY(-2px);
   }
 
   .block-header{
-    padding:15px 20px;
-    font-size:20px;
-    font-weight:900;
-    text-transform:uppercase;
-    letter-spacing:2px;
-    border-bottom:4px solid #000;
+    padding:20px 24px;
+    font-size:22px;
+    border-bottom:var(--border-width) solid var(--ink);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Add decorative elements to headers */
+  .block-header::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    right: -20px;
+    width: 100px;
+    height: 100px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50%;
+    transform: rotate(45deg);
   }
 
   .block-content{
-    padding:20px;
-    background:#fff;
+    padding:24px;
+    background:var(--surface-light);
   }
 
-  /* Header Block */
+  /* --- Header Block --- */
   .header-block{
-    background:var(--cyan);
-    color:#000;
+    background: linear-gradient(135deg, var(--accent-electric) 0%, var(--accent-blue) 100%);
+    color: var(--ink);
     text-align:left;
-    padding:25px 20px;
+    padding:32px 24px;
     display:flex;
-    align-items:left;
+    align-items:center;
     justify-content:space-between;
-    gap:15px;
+    gap:20px;
+    border: var(--border-width) solid var(--ink);
+    border-radius: var(--radius-none);
+    box-shadow: var(--shadow-mega);
+    transform: rotate(0deg); /* Keep header straight */
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header-block:hover {
+    transform: rotate(0deg); /* No rotation on hover */
+  }
+
+  /* Add geometric shapes to header */
+  .header-block::after {
+    content: "";
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background: var(--accent-yellow);
+    border: var(--border-width) solid var(--ink);
+    transform: rotate(45deg);
   }
   
   .logo-area{
     display:flex;
-    align-items:left;
-    gap:15px;
+    align-items:center;
+    gap:20px;
+    z-index: 1;
   }
   
   .logo{
     font-size:42px;
+    text-shadow: 3px 3px 0px var(--ink);
   }
   
   .brand-text{
     font-size:32px;
     letter-spacing:3px;
-    font-weight:900;
+    text-shadow: 2px 2px 0px rgba(0,0,0,0.3);
   }
   
   .tagline{
     font-size:14px;
-    opacity:0.8;
-    font-weight:700;
+    opacity:0.9; 
+    font-weight:600;
+    letter-spacing: 0.05em;
+    text-transform: none;
+    margin-top: 8px;
   }
 
-  /* Control Blocks */
+  /* --- Control Blocks --- */
   .controls-grid{
     display:grid;
-    gap:20px;
-    grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));
+    gap:24px;
+    grid-template-columns:repeat(auto-fit, minmax(320px, 1fr));
   }
 
-  .upload-block .block-header{ background:var(--green); }
-  .text-block .block-header{ background:var(--yellow); }
-  .watermark-block .block-header{ background:var(--purple); color:#fff; }
+  .upload-block .block-header{ 
+    background: var(--accent-coral); 
+    color: var(--surface-light); 
+  }
+  .text-block .block-header{ 
+    background: var(--accent-yellow); 
+    color: var(--ink); 
+  }
+  .watermark-block .block-header{ 
+    background: var(--accent-blue); 
+    color: var(--ink); 
+  }
 
-  /* Form Controls */
+  /* --- Form Controls --- */
   .control{
-    margin-bottom:15px;
-  }
-  
-  .label{
-    display:block;
-    font-size:14px;
-    font-weight:900;
-    text-transform:uppercase;
-    margin-bottom:8px;
-    color:var(--ink-2);
+    margin-bottom:20px;
   }
   
   input[type="file"], textarea, input[type="text"]{
     width:100%;
-    padding:12px;
-    border:3px solid #000;
+    padding:16px;
+    border:var(--border-width) solid var(--ink);
+    border-radius: var(--radius-none);
     font-size:16px;
-    font-weight:700;
-    background:#fff;
+    font-weight:600;
+    background:var(--surface-light);
+    box-shadow: var(--shadow-inset);
+    transition: all 0.2s ease;
+    font-family: 'Inter', sans-serif;
   }
   
   textarea{
-    min-height:80px;
+    min-height:100px;
     resize:vertical;
     font-family:inherit;
   }
   
   input:focus, textarea:focus{
     outline:none;
-    border-color:var(--blue);
-    box-shadow: 0 0 0 3px rgba(68,136,255,0.3);
+    border-color:var(--accent-electric);
+    box-shadow: 0 0 0 4px rgba(0,255,148,0.3), var(--shadow-inset);
+    transform: translateY(-2px);
   }
 
-  /* Buttons */
+  /* --- Buttons --- */
   .btn{
     display:inline-block;
-    padding:15px 25px;
-    border:4px solid #000;
+    padding:18px 32px;
+    border:var(--border-width) solid var(--ink);
+    border-radius: var(--radius-none);
     font-weight:900;
-    font-size:16px;
-    text-transform:uppercase;
+    font-size:18px;
     cursor:pointer;
-    transition:transform 0.1s ease;
+    transition:all 0.15s ease;
     text-decoration:none;
     text-align:center;
-    letter-spacing:1px;
+    letter-spacing:0.1em;
+    box-shadow: var(--shadow-brutal);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.5s ease;
+  }
+
+  .btn:hover::before {
+    left: 100%;
   }
   
-  .btn:hover{ transform:translate(-2px, -2px); }
-  .btn:active{ transform:translate(2px, 2px); }
+  .btn:hover{ 
+    transform:translate(-4px, -4px);
+    box-shadow: var(--shadow-mega);
+  }
+  .btn:active{ 
+    transform:translate(4px, 4px); 
+    box-shadow: 2px 2px 0px var(--ink);
+  }
   
-  .btn-primary{ background:var(--red); color:#fff; }
-  .btn-secondary{ background:var(--orange); color:#000; }
-  .btn-ghost{ background:#fff; color:#000; }
+  .btn-primary{ 
+    background: linear-gradient(135deg, var(--accent-electric) 0%, var(--accent-blue) 100%); 
+    color: var(--ink); 
+  }
+  .btn-secondary{ 
+    background: var(--surface-light); 
+    color: var(--ink); 
+  }
+  .btn-share{ 
+    background: linear-gradient(135deg, var(--accent-coral) 0%, var(--accent-orange) 100%); 
+    color: var(--surface-light); 
+  }
 
-  /* Canvas Block */
-  .canvas-block .block-header{ background:var(--pink); color:#fff; }
+  /* --- Canvas Block & Polaroid Frame --- */
+  .canvas-block .block-header{ 
+    background: linear-gradient(135deg, var(--accent-purple) 0%, var(--accent-blue) 100%); 
+    color: var(--ink); 
+  }
   
+  .meme-polaroid-frame {
+    background: var(--surface-light);
+    border: var(--border-width) solid var(--ink);
+    border-radius: var(--radius-none);
+    box-shadow: var(--shadow-brutal);
+    padding: 12px 12px 60px 12px;
+    position: relative;
+    max-width: 520px;
+    margin: 0 auto 24px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: rotate(-1deg);
+    transition: transform 0.3s ease;
+  }
+
+  .meme-polaroid-frame:hover {
+    transform: rotate(0deg) scale(1.02);
+  }
+
+  .meme-polaroid-frame::after {
+    content: "📸 FEDMEMES.COM";
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Impact', sans-serif;
+    font-size: 14px;
+    font-weight: 900;
+    color: var(--ink-3);
+    letter-spacing: 0.1em;
+  }
+
   .meme-canvas{
     position:relative;
     width:100%;
-    max-width:500px;
     aspect-ratio:1/1;
-    margin:0 auto 20px auto;
-    border:4px solid #000;
     overflow:hidden;
-    background:#333;
+    background:var(--surface-mid);
+    border: var(--border-width) solid var(--ink);
+    border-radius: var(--radius-none);
   }
   
   .meme-bg{
@@ -193,9 +366,8 @@
     font-weight:900;
     text-align:center;
     font-size:32px;
-    text-shadow: 3px 3px 0 #000, -3px -3px 0 #000, 3px -3px 0 #000, -3px 3px 0 #000;
+    text-shadow: 4px 4px 0 var(--ink), -4px -4px 0 var(--ink), 4px -4px 0 var(--ink), -4px 4px 0 var(--ink);
     line-height:1.1;
-    font-family: 'Impact', 'Arial Black', Arial, sans-serif;
   }
   
   .top-text{ top:20px; }
@@ -207,123 +379,209 @@
     left:8px;
     font-size:16px;
     color:rgba(255,255,255,0.9);
-    text-shadow: 2px 2px 0 #000;
+    text-shadow: 3px 3px 0 var(--ink);
     font-weight:900;
   }
 
   .action-buttons{
     display:flex;
-    gap:15px;
+    gap:20px;
     justify-content:center;
     flex-wrap:wrap;
   }
 
-  /* Examples Block */
-  .examples-block .block-header{ background:var(--orange); }
+  .generate-btn-container {
+      margin-top: 24px;
+      text-align: center;
+  }
+  .generate-btn-container .btn {
+      width: 100%;
+      max-width: 350px;
+      font-size: 20px;
+      padding: 20px 40px;
+  }
+
+  /* --- Examples Block --- */
+  .examples-block .block-header{ 
+    background: linear-gradient(135deg, var(--accent-yellow) 0%, var(--accent-orange) 100%); 
+    color: var(--ink); 
+  }
   
   .examples-grid{
     display:grid;
-    gap:15px;
+    gap:16px;
     grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
   }
   
   .example{
-    padding:15px;
-    border:3px solid #000;
-    background:var(--yellow);
+    padding:20px;
+    border:var(--border-width) solid var(--ink);
+    border-radius: var(--radius-none);
+    background:var(--surface-light);
     cursor:pointer;
-    transition:transform 0.1s ease;
+    transition:all 0.2s ease;
     font-size:14px;
+    box-shadow: 4px 4px 0px var(--ink);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .example::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--accent-electric);
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
+  }
+
+  .example:hover::before {
+    transform: scaleY(1);
   }
   
-  .example:hover{ transform:translate(-2px, -2px); }
-  .example:active{ transform:translate(2px, 2px); }
+  .example:hover{ 
+    transform:translate(-4px, -4px); 
+    box-shadow: 8px 8px 0px var(--ink); 
+    background-color: var(--surface-mid);
+  }
+  .example:active{ 
+    transform:translate(2px, 2px); 
+    box-shadow: 2px 2px 0px var(--ink); 
+  }
   
   .example strong{
-    color:#000;
+    color:var(--ink);
     display:block;
-    margin-bottom:5px;
+    margin-bottom:8px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    font-size: 15px;
   }
   
   .example em{
-    color:#333;
+    color:var(--ink-2);
     font-style:normal;
-    font-weight:700;
+    font-weight:600;
+    font-family: 'Inter', sans-serif;
   }
 
-  /* Stock Images Block */
-  .images-block .block-header{ background:var(--green); }
+  /* --- Stock Images Block --- */
+  .images-block .block-header{ 
+    background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-purple) 100%); 
+    color: var(--ink); 
+  }
   
   .gallery{
     display:grid;
-    gap:12px;
+    gap:16px;
     grid-template-columns:repeat(auto-fit, minmax(120px, 1fr));
   }
   
   .gallery-img{
     aspect-ratio:1/1;
     background:#ddd center/cover no-repeat;
-    border:4px solid #000;
+    border:var(--border-width) solid var(--ink);
+    border-radius: var(--radius-none);
     cursor:pointer;
-    transition:transform 0.1s ease;
-  }
-  
-  .gallery-img:hover{ transform:scale(1.05); }
-  .gallery-img.selected{ 
-    border-color:var(--red);
-    box-shadow: 0 0 0 4px rgba(255,68,68,0.3);
+    transition:all 0.2s ease;
+    box-shadow: 4px 4px 0px var(--ink);
+    position: relative;
+    overflow: hidden;
   }
 
-  /* Toast */
+  .gallery-img::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0);
+    transition: background 0.3s ease;
+  }
+
+  .gallery-img:hover::after {
+    background: rgba(0,255,148,0.2);
+  }
+  
+  .gallery-img:hover{ 
+    transform:translate(-2px, -2px) scale(1.05); 
+    box-shadow: 6px 6px 0px var(--ink); 
+  }
+  
+  .gallery-img.selected{ 
+    border-color:var(--accent-electric);
+    box-shadow: 0 0 0 4px var(--accent-electric), 4px 4px 0px var(--ink);
+    transform: scale(1.05);
+  }
+
+  /* --- Toast --- */
   .toast{
     position:fixed;
     bottom:30px;
     left:50%;
     transform:translateX(-50%);
-    background:#000;
+    background:var(--surface-dark);
     color:#fff;
-    padding:15px 25px;
-    border:4px solid #fff;
+    padding:20px 32px;
+    border:var(--border-width) solid var(--ink);
+    border-radius: var(--radius-none);
     font-weight:900;
     font-size:16px;
     z-index:1000;
     opacity:0;
-    transition:opacity 0.3s ease;
+    transition:all 0.3s ease;
+    box-shadow: var(--shadow-brutal);
   }
   
-  .toast.show{ opacity:1; }
+  .toast.show{ 
+    opacity:1; 
+    transform:translateX(-50%) translateY(-8px) rotate(-1deg); 
+  }
 
-  /* Footer Styles */
+  /* --- Footer Styles --- */
   .footer-block {
-    margin-top: 20px;
-    background: var(--ink); /* Black background for footer */
+    margin-top: 40px;
+    background: var(--surface-dark);
     color: #fff;
-    padding: 20px;
+    padding: 32px 24px;
     text-align: center;
     font-size: 14px;
-    border-top: 4px solid var(--orange); /* Distinct top border */
+    border-top: 6px solid var(--accent-electric);
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    transform: rotate(0deg); /* Keep footer straight */
+  }
+
+  .footer-block:hover {
+    transform: rotate(0deg); /* No rotation on hover */
   }
 
   .footer-block p {
-    margin: 0 0 10px 0;
-    line-height: 1.5;
+    margin: 0 0 12px 0;
+    line-height: 1.6;
   }
 
   .footer-block a {
-    color: var(--cyan); /* Link color */
+    color: var(--accent-yellow);
     text-decoration: none;
-    font-weight: 700;
+    font-weight: 800;
     transition: color 0.2s ease;
+    border-bottom: 2px solid transparent;
   }
 
   .footer-block a:hover {
-    color: var(--red);
-    text-decoration: underline;
+    color: var(--accent-electric);
+    border-bottom-color: var(--accent-electric);
   }
 
-
-  /* Mobile Responsive */
-  @media(max-width:640px){
+  /* --- Mobile Responsive --- */
+  @media(max-width:768px){
+    .container {
+      padding: 16px;
+      gap: 20px;
+    }
+    
     .controls-grid{
       grid-template-columns:1fr;
     }
@@ -338,11 +596,58 @@
     }
     .btn{
       width:100%;
+      font-size: 16px;
+      padding: 16px 24px;
     }
     .header-block{
       flex-direction:column;
       text-align:center;
+      padding: 24px 20px;
     }
+    .block {
+        box-shadow: 4px 4px 0px var(--ink);
+        transform: rotate(0deg); /* Less rotation on mobile */
+    }
+    .block:hover {
+      transform: translateY(-2px);
+    }
+    .meme-polaroid-frame {
+        padding: 8px 8px 45px 8px;
+        box-shadow: 4px 4px 0px var(--ink);
+        transform: rotate(0deg);
+    }
+    .meme-polaroid-frame:hover {
+      transform: scale(1.02);
+    }
+    .generate-btn-container .btn {
+      max-width: 100%;
+      font-size: 18px;
+    }
+    .brand-text {
+      font-size: 28px;
+    }
+    .logo {
+      font-size: 36px;
+    }
+  }
+
+  /* Subtle hover animations only - no floating */
+  .block {
+    transform: rotate(-0.5deg); /* Subtle rotation for dynamism */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .block:hover {
+    transform: rotate(0deg) translateY(-2px);
+    box-shadow: var(--shadow-mega);
+  }
+
+  .block:nth-child(even) {
+    transform: rotate(0.5deg); /* Alternate rotation */
+  }
+
+  .block:nth-child(even):hover {
+    transform: rotate(0deg) translateY(-2px);
   }
 </style>
 </head>
@@ -352,43 +657,45 @@
       <div class="logo-area">
         <div class="logo">🏛️</div>
         <div>
-          <div class="brand-text">FedMemes</div>
-          <div class="tagline">Brandable Memes for Your Pleasure</div>
+          <div class="brand-text">FEDMEMES</div>
+          <div class="tagline">Turning bureaucracy into comedy since 2025</div>
         </div>
-      </div>
-      <div>
-        <button class="btn btn-primary" id="generateBtn">🚀 Generate Meme</button>
       </div>
     </div>
 
     <div class="block canvas-block">
-      <div class="block-header">🎨 Your Meme</div>
+      <div class="block-header">🖼️ Your Meme Masterpiece</div>
       <div class="block-content">
-        <div class="meme-canvas" id="memeCanvas">
-          <div class="meme-bg" id="memeBg"></div>
-          <div class="meme-text top-text" id="topTextEl">NOBODY:</div>
-          <div class="meme-text bottom-text" id="bottomTextEl">ME FILLING OUT MY 47TH FORM TODAY</div>
-          <div class="watermark" id="watermarkEl"></div>
+        <div class="meme-polaroid-frame">
+          <div class="meme-canvas" id="memeCanvas">
+            <div class="meme-bg" id="memeBg"></div>
+            <div class="meme-text top-text" id="topTextEl">NOBODY:</div>
+            <div class="meme-text bottom-text" id="bottomTextEl">ME FILLING OUT MY 47TH FORM TODAY</div>
+            <div class="watermark" id="watermarkEl"></div>
+          </div>
         </div>
         
-        <div style="text-align:center; margin-bottom:20px; color:#666; font-size:14px;">
+        <div style="text-align:center; margin-bottom:16px; color:var(--ink-3); font-size:14px; font-family: 'Inter', sans-serif; font-weight: 600;">
           Click "Generate Meme" to create your final version
         </div>
+
+        <div class="generate-btn-container">
+          <button class="btn btn-primary" id="generateBtn">🚀 Generate Meme</button>
+        </div>
         
-        <div class="action-buttons">
-          <button class="btn btn-secondary" id="downloadBtn">📥 Download</button>
-          <button class="btn btn-ghost" id="shareLinkedInBtn">💼 Share on LinkedIn</button>
-          <button class="btn btn-ghost" id="shareTextBtn">💬 Share via Text</button>
+        <div class="action-buttons" style="margin-top: 24px;">
+          <button class="btn btn-secondary" id="downloadBtn">💾 Download</button>
+          <button class="btn btn-share" id="copyShareBtn">📋 Copy & Share</button>
         </div>
       </div>
     </div>
 
     <div class="controls-grid">
       <div class="block upload-block">
-        <div class="block-header">📁 Upload Your Image</div>
+        <div class="block-header">📁 Upload Image</div>
         <div class="block-content">
           <div class="control">
-            <label class="label">Choose File</label>
+            <label class="label">Choose Your File</label>
             <input type="file" id="imageUpload" accept="image/*" />
           </div>
         </div>
@@ -419,17 +726,17 @@
       </div>
     </div>
 
-    <div class="block">
+    <div class="block images-block">
       <div class="block-header">🖼️ Choose Stock Photo</div>
       <div class="block-content">
         <div class="gallery" id="gallery"></div>
-        <div style="text-align:center; margin-top:12px; font-size:12px; color:var(--ink-2);">
+        <div style="text-align:center; margin-top:16px; font-size:13px; color:var(--ink-3); font-family: 'Inter', sans-serif; font-weight: 600;">
           Click an image to use as background
         </div>
       </div>
     </div>
 
-    <div class="block">
+    <div class="block examples-block">
       <div class="block-header">🎲 Quick Examples</div>
       <div class="block-content">
         <div class="examples-grid" id="examples"></div>
@@ -513,8 +820,7 @@ const gallery = document.getElementById('gallery');
 const examples = document.getElementById('examples');
 const generateBtn = document.getElementById('generateBtn');
 const downloadBtn = document.getElementById('downloadBtn');
-const shareLinkedInBtn = document.getElementById('shareLinkedInBtn');
-const shareTextBtn = document.getElementById('shareTextBtn');
+const copyShareBtn = document.getElementById('copyShareBtn');
 const toast = document.getElementById('toast');
 const exportCanvas = document.getElementById('exportCanvas');
 
@@ -523,10 +829,14 @@ let generatedMemeBlob = null;
 
 // Initialize
 function init() {
-  // Set default placeholder image
-  currentImage = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face";
+  const initialExample = EXAMPLES[Math.floor(Math.random() * EXAMPLES.length)];
+  currentImage = STOCK_IMAGES[0];
+  
   memeBg.style.backgroundImage = `url(${currentImage})`;
   
+  topText.value = initialExample.top;
+  bottomText.value = initialExample.bottom;
+
   setupExamples();
   setupGallery();
   setupEventListeners();
@@ -556,7 +866,6 @@ function setupGallery() {
     div.className = 'gallery-img';
     div.style.backgroundImage = `url(${url})`;
     
-    // Select first image by default
     if (index === 0) {
       div.classList.add('selected');
     }
@@ -593,8 +902,7 @@ function setupEventListeners() {
 
   generateBtn.addEventListener('click', generateMeme);
   downloadBtn.addEventListener('click', downloadMeme);
-  shareLinkedInBtn.addEventListener('click', shareLinkedIn);
-  shareTextBtn.addEventListener('click', shareText);
+  copyShareBtn.addEventListener('click', copyAndShare);
 }
 
 function updateMeme() {
@@ -610,36 +918,31 @@ async function generateMeme() {
   canvas.width = 800;
   canvas.height = 800;
 
-  // Black background
   ctx.fillStyle = '#000';
   ctx.fillRect(0, 0, 800, 800);
 
-  // Draw background image if exists
   if (currentImage) {
     const img = new Image();
-    img.crossOrigin = 'anonymous'; // Important for CORS if using external images
+    img.crossOrigin = 'anonymous';
     await new Promise((resolve, reject) => {
       img.onload = () => {
         ctx.drawImage(img, 0, 0, 800, 800);
         resolve();
       };
       img.onerror = () => {
-        // Fallback or error handling for image loading
         console.error('Failed to load image for canvas:', currentImage);
-        resolve(); // Resolve anyway to proceed without the image
+        resolve();
       };
       img.src = currentImage;
     });
   }
 
-  // Text styling
   ctx.fillStyle = '#fff';
   ctx.strokeStyle = '#000';
   ctx.lineWidth = 4;
   ctx.textAlign = 'center';
   ctx.font = 'bold 48px Impact, Arial';
 
-  // Top text
   const topLines = wrapText(ctx, topText.value.toUpperCase(), 750);
   topLines.forEach((line, i) => {
     const y = 80 + (i * 60);
@@ -647,7 +950,6 @@ async function generateMeme() {
     ctx.fillText(line, 400, y);
   });
 
-  // Bottom text
   const bottomLines = wrapText(ctx, bottomText.value.toUpperCase(), 750);
   bottomLines.reverse().forEach((line, i) => {
     const y = 720 - (i * 60);
@@ -655,7 +957,6 @@ async function generateMeme() {
     ctx.fillText(line, 400, y);
   });
 
-  // Watermark
   if (watermark.value) {
     ctx.font = 'bold 24px Arial';
     ctx.fillStyle = 'rgba(255,255,255,0.8)';
@@ -671,7 +972,7 @@ async function generateMeme() {
       generatedMemeBlob = blob;
       showToast('Meme generated! Ready to share 🎉');
       resolve(blob);
-    }, 'image/png'); // Specify image type
+    }, 'image/png');
   });
 }
 
@@ -686,85 +987,45 @@ async function downloadMeme() {
   a.download = `fedmeme-${Date.now()}.png`;
   a.click();
   URL.revokeObjectURL(url);
-  showToast('Meme downloaded! 💾');
+  showToast('Meme downloaded! 💾 Find it in your downloads folder.');
 }
 
-async function shareLinkedIn() {
+async function copyAndShare() {
     if (!generatedMemeBlob) {
-        showToast('Please generate your meme first!');
-        return;
+        await generateMeme();
     }
 
-    // Attempt to download the image first
-    await downloadMeme(); // This will show a toast about downloading
-
-    // Prepare a caption for LinkedIn
-    const caption = `${topText.value}\n${bottomText.value}\n\n#government #federalemployee #civilservice #publicsector #workhumor #FedMemes`;
-
-    // Try to copy caption to clipboard (desktop experience)
+    // Try to copy the image to clipboard first (works on most modern browsers)
     try {
-        await navigator.clipboard.writeText(caption);
-        showToast('Caption copied! Now, upload the downloaded meme on LinkedIn.');
-    } catch (err) {
-        showToast('Could not copy caption. Please copy manually and proceed.');
-        console.error('Failed to copy caption to clipboard: ', err);
-    }
-
-    // Open LinkedIn's share page in a new tab
-    // Note: Direct image upload is not supported via this simple client-side method.
-    // Users will need to manually upload the image they just downloaded.
-    setTimeout(() => { // Give a small delay for download to start/clipboard copy
-        window.open('https://www.linkedin.com/feed/?shareActive=true', '_blank');
-    }, 500);
-}
-
-
-async function shareText() {
-    if (!generatedMemeBlob) {
-        showToast('Please generate your meme first!');
+        const item = new ClipboardItem({'image/png': generatedMemeBlob});
+        await navigator.clipboard.write([item]);
+        showToast('Meme copied to clipboard! 📋 Now paste it anywhere you want to share.');
         return;
+    } catch (err) {
+        console.warn('Failed to copy image to clipboard:', err);
     }
 
-    const title = 'FedMemes: Your new favorite meme!';
-    const text = `${topText.value}\n${bottomText.value}`;
-    
-    // Try to use Web Share API
-    if (navigator.share && navigator.canShare && navigator.canShare({ files: [new File([generatedMemeBlob], 'fedmeme.png', { type: 'image/png' })] })) {
+    // Fallback: Try Web Share API for mobile devices
+    if (navigator.share) {
         try {
-            await navigator.share({
-                title: title,
-                text: text,
+            const shareData = {
+                title: 'Check out this FedMeme!',
                 files: [new File([generatedMemeBlob], 'fedmeme.png', { type: 'image/png' })]
-            });
-            showToast('Meme shared! 📱');
+            };
+            
+            if (navigator.canShare && navigator.canShare(shareData)) {
+                await navigator.share(shareData);
+                showToast('Meme shared successfully! 🎉');
+                return;
+            }
         } catch (error) {
-            console.error('Error sharing:', error);
-            // Fallback if user cancels or there's another share error
-            fallbackManualShare(text);
+            console.warn('Web Share API failed:', error);
         }
-    } else {
-        // Fallback for browsers/devices that don't support Web Share API with files
-        fallbackManualShare(text);
     }
-}
 
-function fallbackManualShare(text) {
-    // Attempt to copy text to clipboard
-    navigator.clipboard.writeText(text).then(() => {
-        showToast('Text copied to clipboard! Please download the image and paste the text into your messaging app.');
-    }).catch(err => {
-        // If clipboard write fails, provide a text area for manual copy
-        // This is a last resort and may not work perfectly on all mobile devices
-        const textArea = document.createElement('textarea');
-        textArea.value = text;
-        document.body.appendChild(textArea);
-        textArea.select();
-        document.execCommand('copy');
-        document.body.removeChild(textArea);
-        showToast('Text copied to clipboard! (Manual fallback). Please download the image and paste the text into your messaging app.');
-    });
-    // For manual text share, we also want to ensure the user downloads the image
-    downloadMeme(); 
+    // Final fallback: Download the meme
+    showToast('Copying not supported on this device. Downloading meme instead...');
+    downloadMeme();
 }
 
 function wrapText(ctx, text, maxWidth) {
