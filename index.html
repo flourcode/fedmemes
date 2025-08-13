@@ -934,35 +934,46 @@ async function generateMeme() {
   // Draw background image if exists with proper aspect ratio handling
   if (currentImage) {
     const img = new Image();
-    img.crossOrigin = 'anonymous';
+    
+    // Critical: Set crossOrigin BEFORE setting src
+    if (currentImage.startsWith('https://fedmemes.s3.us-east-1.amazonaws.com/')) {
+      img.crossOrigin = 'anonymous';
+    }
+    
     await new Promise((resolve, reject) => {
       img.onload = () => {
-        // Calculate dimensions to maintain aspect ratio and cover the canvas
-        const canvasAspect = canvas.width / canvas.height;
-        const imgAspect = img.width / img.height;
-        
-        let drawWidth, drawHeight, offsetX, offsetY;
-        
-        if (imgAspect > canvasAspect) {
-          // Image is wider than canvas - fit to height, crop sides
-          drawHeight = canvas.height;
-          drawWidth = img.width * (canvas.height / img.height);
-          offsetX = (canvas.width - drawWidth) / 2;
-          offsetY = 0;
-        } else {
-          // Image is taller than canvas - fit to width, crop top/bottom
-          drawWidth = canvas.width;
-          drawHeight = img.height * (canvas.width / img.width);
-          offsetX = 0;
-          offsetY = (canvas.height - drawHeight) / 2;
+        try {
+          // Calculate dimensions to maintain aspect ratio and cover the canvas
+          const canvasAspect = canvas.width / canvas.height;
+          const imgAspect = img.width / img.height;
+          
+          let drawWidth, drawHeight, offsetX, offsetY;
+          
+          if (imgAspect > canvasAspect) {
+            // Image is wider than canvas - fit to height, crop sides
+            drawHeight = canvas.height;
+            drawWidth = img.width * (canvas.height / img.height);
+            offsetX = (canvas.width - drawWidth) / 2;
+            offsetY = 0;
+          } else {
+            // Image is taller than canvas - fit to width, crop top/bottom
+            drawWidth = canvas.width;
+            drawHeight = img.height * (canvas.width / img.width);
+            offsetX = 0;
+            offsetY = (canvas.height - drawHeight) / 2;
+          }
+          
+          ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+          console.log('Image drawn successfully');
+          resolve();
+        } catch (error) {
+          console.error('Error drawing image to canvas:', error);
+          resolve(); // Continue without image
         }
-        
-        ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
-        resolve();
       };
-      img.onerror = () => {
-        console.error('Failed to load image for canvas:', currentImage);
-        resolve();
+      img.onerror = (error) => {
+        console.error('Failed to load image for canvas:', currentImage, error);
+        resolve(); // Continue without image
       };
       img.src = currentImage;
     });
@@ -1004,8 +1015,13 @@ async function generateMeme() {
 
   return new Promise((resolve) => {
     canvas.toBlob((blob) => {
-      generatedMemeBlob = blob;
-      showToast('Meme generated! Ready to share 🎉');
+      if (blob) {
+        generatedMemeBlob = blob;
+        showToast('Meme generated! Ready to share 🎉');
+      } else {
+        console.error('Failed to generate blob from canvas');
+        showToast('Error generating meme. Please try again.');
+      }
       resolve(blob);
     }, 'image/png');
   });
